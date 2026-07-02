@@ -21,6 +21,6 @@ jobs:
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
-          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_STUDY_LOG_CD03C }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MY_STUDY_LOG_V3 }}
           channelId: live
-          projectId: my-study-log-cd03c
+          projectId: my-study-log-v3
