@@ -39,9 +39,10 @@ function App() {
         <Table.Root>
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader>Title</Table.ColumnHeader>
-              <Table.ColumnHeader>Time</Table.ColumnHeader>
-              <Table.ColumnHeader>CreatedAt</Table.ColumnHeader>
+              <Table.ColumnHeader>学習内容</Table.ColumnHeader>
+              <Table.ColumnHeader>学習時間</Table.ColumnHeader>
+              <Table.ColumnHeader></Table.ColumnHeader>
+              <Table.ColumnHeader></Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -49,7 +50,8 @@ function App() {
               <Table.Row key={log.id}>
                 <Table.Cell>{log.title}</Table.Cell>
                 <Table.Cell>{`${log.time}時間`}</Table.Cell>
-                <Table.Cell>{log.created_at}</Table.Cell>
+                <Table.Cell>編集</Table.Cell>
+                <Table.Cell>削除</Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
