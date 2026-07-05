@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Table } from '@chakra-ui/react'
+import { Button } from "./components/ui/button";
 import { GetAllLogs } from './lib/log';
 
 import type { Log } from './domain/log';
 
 import './App.css';
+import { PrimaryButton } from './components/atoms/button/PrimaryButton';
 
 function App() {
   const [ logs, setLogs ] = useState<Log[]>([]);
@@ -25,30 +27,14 @@ function App() {
     return <p>Loading...</p>
   }
 
+  const onClickAdd = () => alert("test.");
+
   return (
     <>
       <h1 data-testid="title">学習ログ</h1>
 
-      {/* <table data-testid="table">
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Done</th>
-            <th scope="col">CreatedAt</th>
-          </tr>
-        </thead>
-        <tbody>
-          {logs.map((log) => (
-            <tr key={log.id}>
-              <td>{log.title}</td>
-              <td>{log.done ? 'TRUE' : 'FALSE'}</td>
-              <td>{log.created_at}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+      <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
 
-      {/* // jestで認識できない */}
       <div data-testid="table">
         <Table.Root>
           <Table.Header>
