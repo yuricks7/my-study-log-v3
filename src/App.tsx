@@ -1,29 +1,27 @@
 import { useEffect, useState } from 'react';
 import { Table } from '@chakra-ui/react'
-import { Button } from "./components/ui/button";
-import { GetAllLogs } from './lib/log';
+import { PrimaryButton } from './components/atoms/button/PrimaryButton';
 
 import type { Log } from './domain/log';
 
-import './App.css';
-import { PrimaryButton } from './components/atoms/button/PrimaryButton';
+import { GetAllLogs } from './lib/log';
 
 function App() {
   const [ logs, setLogs ] = useState<Log[]>([]);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ isTableLoading, setIsTableLoading ] = useState(true);
 
   useEffect(() => {
     const getAllLogs = async () => {
       const logsData = await GetAllLogs();
       console.log(logsData);
       setLogs(logsData);
-      setIsLoading(false);
+      setIsTableLoading(false);
     }
 
     getAllLogs();
   }, []);
 
-  if (isLoading) {
+  if (isTableLoading) {
     return <p>Loading...</p>
   }
 
