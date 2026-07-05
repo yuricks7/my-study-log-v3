@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Table } from '@chakra-ui/react'
+import { RiPencilFill } from "react-icons/ri";
+import { FaTrashCan } from 'react-icons/fa6';
+
 import { PrimaryButton } from './components/atoms/button/PrimaryButton';
 
 import type { Log } from './domain/log';
@@ -48,8 +51,8 @@ function App() {
               <Table.Row key={log.id}>
                 <Table.Cell>{log.title}</Table.Cell>
                 <Table.Cell>{`${log.time}時間`}</Table.Cell>
-                <Table.Cell>編集</Table.Cell>
-                <Table.Cell>削除</Table.Cell>
+                <Table.Cell><RiPencilFill/></Table.Cell>
+                <Table.Cell><FaTrashCan/></Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
