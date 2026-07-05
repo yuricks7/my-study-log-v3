@@ -1,61 +1,49 @@
 import { useEffect, useState } from 'react';
 import { Table } from '@chakra-ui/react'
-import { GetAllLogs } from './lib/log';
+import { RiPencilFill } from "react-icons/ri";
+import { FaTrashCan } from 'react-icons/fa6';
+
+import { PrimaryButton } from './components/atoms/button/PrimaryButton';
 
 import type { Log } from './domain/log';
 
-import './App.css';
+import { GetAllLogs } from './lib/log';
 
 function App() {
   const [ logs, setLogs ] = useState<Log[]>([]);
-  const [ isLoading, setIsLoading ] = useState(true);
+  const [ isTableLoading, setIsTableLoading ] = useState(true);
 
   useEffect(() => {
     const getAllLogs = async () => {
       const logsData = await GetAllLogs();
       console.log(logsData);
       setLogs(logsData);
-      setIsLoading(false);
+      setIsTableLoading(false);
     }
 
     getAllLogs();
   }, []);
 
-  if (isLoading) {
+  if (isTableLoading) {
     return <p>Loading...</p>
   }
+
+  const onClickAdd = () => alert("test.");
 
   return (
     <>
       <h1 data-testid="title">学習ログ</h1>
 
-      {/* <table data-testid="table">
-        <thead>
-          <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Done</th>
-            <th scope="col">CreatedAt</th>
-          </tr>
-        </thead>
-        <tbody>
-          {logs.map((log) => (
-            <tr key={log.id}>
-              <td>{log.title}</td>
-              <td>{log.done ? 'TRUE' : 'FALSE'}</td>
-              <td>{log.created_at}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table> */}
+      <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
 
-      {/* // jestで認識できない */}
       <div data-testid="table">
         <Table.Root>
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader>Title</Table.ColumnHeader>
-              <Table.ColumnHeader>Time</Table.ColumnHeader>
-              <Table.ColumnHeader>CreatedAt</Table.ColumnHeader>
+              <Table.ColumnHeader>学習内容</Table.ColumnHeader>
+              <Table.ColumnHeader>学習時間</Table.ColumnHeader>
+              <Table.ColumnHeader></Table.ColumnHeader>
+              <Table.ColumnHeader></Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -63,7 +51,8 @@ function App() {
               <Table.Row key={log.id}>
                 <Table.Cell>{log.title}</Table.Cell>
                 <Table.Cell>{`${log.time}時間`}</Table.Cell>
-                <Table.Cell>{log.created_at}</Table.Cell>
+                <Table.Cell><RiPencilFill/></Table.Cell>
+                <Table.Cell><FaTrashCan/></Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>
