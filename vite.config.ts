@@ -1,12 +1,19 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vitest/config';
-import react from '@vitejs/plugin-react'; // @vitejs/plugin-react-swcでもOK
+import react from '@vitejs/plugin-react';
+import env from "vite-plugin-env-compatible";
 
 export default defineConfig({
-  plugins: [react()],
+  define: {
+    'process.env': process.env
+  },
+  plugins: [
+    react(),
+    env({ prefix: "VITE", mountedPath: "process.env" })
+  ],
   test: {
-    environment: "jsdom", // 代わりにhappy-domをインストールして使うことも可能
     globals: true,
+    environment: "jsdom",
     setupFiles: "./vitest.setup.ts"
   }
 })
