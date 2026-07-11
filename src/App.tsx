@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Table } from '@chakra-ui/react'
+import { Flex, Table } from '@chakra-ui/react'
 import { RiPencilFill } from "react-icons/ri";
 import { FaTrashCan } from 'react-icons/fa6';
 
@@ -34,7 +34,9 @@ function App() {
     <>
       <h1 data-testid="title">学習記録アプリ</h1>
 
-      <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
+      <Flex justifyContent={'flex-end'} >
+        <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
+      </Flex>
 
       <div data-testid="table">
         <Table.Root>
