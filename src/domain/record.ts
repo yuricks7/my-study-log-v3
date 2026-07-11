@@ -1,4 +1,4 @@
-export class Log {
+export class Record {
   public id: string;
   public title: string;
   public time: number;
@@ -13,13 +13,13 @@ export class Log {
     this.created_at = created_at;
   }
 
-  public static newLog(
+  public static newRecord(
     id: string,
     title: string,
     time: number,
     created_at: string
-  ): Log {
-    return new Log(id, title, time, formatDate(created_at));
+  ): Record {
+    return new Record(id, title, time, formatDate(created_at));
   }
 }
 

@@ -3,63 +3,58 @@ import { Flex, Table } from '@chakra-ui/react'
 import { RiPencilFill } from "react-icons/ri";
 import { FaTrashCan } from 'react-icons/fa6';
 
-import { PrimaryButton } from './components/atoms/button/PrimaryButton';
+import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 
-import type { Log } from './domain/log';
+import { Record } from '@/domain/record';
 
-import { GetAllLogs } from './lib/log';
+import { dbUsecase } from '@/utils/supabase/dbUsecase';
+import { useRecord } from '@/hooks/useRecord';
+import { RecordProvider } from './providers/RecordProvider';
+import { DataTable } from './components/morecules/DataTable';
 
 function App() {
-  const [ logs, setLogs ] = useState<Log[]>([]);
+  // ==========================
+  //  states
+  // ==========================
+  // const {
+  //   title, setTitle, hasTitleError,
+  //   time, setTime, hasTimeError,
+  //   handleAdd
+  // } = useRecord();
+  const { title, time, handleAdd } = useRecord();
+
+  const [ records, setRecords ] = useState<Record[]>([]);
   const [ isTableLoading, setIsTableLoading ] = useState(true);
 
   useEffect(() => {
-    const getAllLogs = async () => {
-      const logsData = await GetAllLogs();
-      console.log(logsData);
-      setLogs(logsData);
+    const getAllRecords = async () => {
+      const recordsData = await dbUsecase.fetchList();
+      // console.record(recordsData);
+      setRecords(recordsData);
       setIsTableLoading(false);
     }
 
-    getAllLogs();
+    getAllRecords();
   }, []);
 
   if (isTableLoading) {
     return <p data-testid="loading-screen">Loading...</p>
   }
 
-  const onClickAdd = () => alert("test.");
+  const onClickAdd = () => alert('test.');
 
   return (
     <>
       <h1 data-testid="title">学習記録アプリ</h1>
 
       <Flex justifyContent={'flex-end'} >
-        <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
+        <PrimaryButton onClick={onClickAdd}
+        >新規登録</PrimaryButton>
+        {/* <PrimaryButton onClick={() => handleAdd(title, time)}
+        >新規登録</PrimaryButton> */}
       </Flex>
 
-      <div data-testid="table">
-        <Table.Root>
-          <Table.Header>
-            <Table.Row>
-              <Table.ColumnHeader>学習内容</Table.ColumnHeader>
-              <Table.ColumnHeader>学習時間</Table.ColumnHeader>
-              <Table.ColumnHeader></Table.ColumnHeader>
-              <Table.ColumnHeader></Table.ColumnHeader>
-            </Table.Row>
-          </Table.Header>
-          <Table.Body>
-            {logs.map((log) => (
-              <Table.Row key={log.id}>
-                <Table.Cell>{log.title}</Table.Cell>
-                <Table.Cell>{`${log.time}時間`}</Table.Cell>
-                <Table.Cell><RiPencilFill/></Table.Cell>
-                <Table.Cell><FaTrashCan/></Table.Cell>
-              </Table.Row>
-            ))}
-          </Table.Body>
-        </Table.Root>
-      </div>
+      <DataTable records={records} />
     </>
   )
 }

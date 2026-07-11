@@ -1,6 +1,6 @@
 import { supabase } from "./supabase";
 
-import { Log } from '@/domain/log';
+import { Record } from '@/domain/record';
 
 // Supabase内のテーブル名
 export const TABLE_NAME: string = "my-study-log-v2";
@@ -9,17 +9,22 @@ export const TABLE_NAME: string = "my-study-log-v2";
  * Supabaseの操作各種
  */
 export const dbUsecase = {
-  async fetchList(): Promise<Log[]> {
+  async fetchList(): Promise<Record[]> {
     const { data, error } = await supabase
       .from(TABLE_NAME)
       .select("*")
       .order("created_at", { ascending: true });
 
     if (error) throw error;
-    return data;
+
+    const recordsData = data.map((record) => {
+      return Record.newRecord(record.id, record.title, record.time, record.created_at);
+    });
+
+    return recordsData;
   },
 
-  async add(title: string, time: number): Promise<Log> {
+  async add(title: string, time: number): Promise<Record> {
     const { data, error } = await supabase
       .from(TABLE_NAME)
       .insert({ title, time })
@@ -29,7 +34,7 @@ export const dbUsecase = {
     return data[0];
   },
 
-  async update(id: string, title: string, time: number): Promise<Log> {
+  async update(id: string, title: string, time: number): Promise<Record> {
     const { data, error } = await supabase
       .from(TABLE_NAME)
       .update({ title, time })

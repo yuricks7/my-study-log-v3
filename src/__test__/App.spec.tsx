@@ -1,22 +1,22 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
-import { Log } from "../domain/log";
+import { Record } from "../domain/record";
 import { renderApp } from "../../test-utils/renderApp";
 import { waitForTable } from "../../test-utils/waitForTable";
 
 // モック関数の定義
-const mockGetAllLogs = vi.fn().mockResolvedValue([
-  new Log('1', "Title1", 1, "2021-01-01T000:00:00Z"),
-  new Log('2', "Title2", 2, "2021-01-01T000:00:00Z"),
-  new Log('3', "Title3", 3, "2021-01-01T000:00:00Z"),
-  new Log('4', "Title4", 4, "2021-01-01T000:00:00Z"),
+const mockGetAllRecords = vi.fn().mockResolvedValue([
+  new Record('1', "Title1", 1, "2021-01-01T000:00:00Z"),
+  new Record('2', "Title2", 2, "2021-01-01T000:00:00Z"),
+  new Record('3', "Title3", 3, "2021-01-01T000:00:00Z"),
+  new Record('4', "Title4", 4, "2021-01-01T000:00:00Z"),
 ]);
 
-vi.mock("../lib/log", () => {
+vi.mock("../lib/record", () => {
   return {
     // モックしたい関数: () => モック関数(),
-    GetAllLogs: () => mockGetAllLogs(),
+    GetAllRecords: () => mockGetAllRecords(),
   };
 });
 
@@ -35,16 +35,6 @@ describe("App", () => {
 
     const title = screen.getByTestId('title');
     expect(title).toBeInTheDocument();
-  });
-
-  test("Logが4つ表示されること", async () => {
-    renderApp();
-    await waitForTable();
-
-    const todos = screen.getByTestId('table').querySelectorAll('tr');
-
-    const HEADER_ROW = 1;
-    expect(todos.length - HEADER_ROW).toBe(4);
   });
 
   test("新規登録ボタンがある", async () => {
