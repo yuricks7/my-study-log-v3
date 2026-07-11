@@ -1,6 +1,6 @@
-import { supabase } from "@/utils/supabase";
+import { supabase } from "@/utils/supabase/supabase";
 
-import { Log } from "../domain/log";
+import { Log } from "@/domain/log";
 
 export async function GetAllLogs(): Promise<Log[]> {
   const response = await supabase.from('my-study-log-v2').select('*');
