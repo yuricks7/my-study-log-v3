@@ -25,7 +25,7 @@ function App() {
   }, []);
 
   if (isTableLoading) {
-    return <p>Loading...</p>
+    return <p data-testid="loading-screen">Loading...</p>
   }
 
   const onClickAdd = () => alert("test.");

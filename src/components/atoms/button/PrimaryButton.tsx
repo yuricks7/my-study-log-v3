@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Button } from "../../ui/button"
+import { Button } from "@/components/ui/button"
 
 type Props = {
   children: React.ReactNode;
