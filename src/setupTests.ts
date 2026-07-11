@@ -1,4 +1,4 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // Vitest (jsdom) には matchMedia が無いので自前でモックする
 if (!window.matchMedia) {

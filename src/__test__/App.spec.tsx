@@ -1,10 +1,9 @@
 import "@testing-library/jest-dom";
-import { screen, waitFor } from "@testing-library/react";
-import { renderWithProvider } from "../../test-utils/renderWithProvider";
-
-import App from "../App";
+import { screen } from "@testing-library/react";
 
 import { Log } from "../domain/log";
+import { renderApp } from "../../test-utils/renderApp";
+import { waitForTable } from "../../test-utils/waitForTable";
 
 // モック関数の定義
 const mockGetAllLogs = vi.fn().mockResolvedValue([
@@ -23,21 +22,44 @@ vi.mock("../lib/log", () => {
 
 // テスト
 describe("App", () => {
-  test("タイトルがあること", async () => {
-    renderWithProvider(<App />);
-    await waitFor(() => screen.getByTestId('table'));
-    const title = screen.getByTestId('title');
+  test("ローディング画面を見ることが出来る", async () => {
+    renderApp();
 
+    const loading = screen.getByTestId('loading-screen');
+    expect(loading).toBeInTheDocument();
+  });
+
+  test("タイトルがあること", async () => {
+    renderApp();
+    await waitForTable();
+
+    const title = screen.getByTestId('title');
     expect(title).toBeInTheDocument();
   });
 
   test("Logが4つ表示されること", async () => {
-    renderWithProvider(<App />);
+    renderApp();
+    await waitForTable();
 
-    await waitFor(() => screen.getByTestId('table'));
     const todos = screen.getByTestId('table').querySelectorAll('tr');
 
     const HEADER_ROW = 1;
     expect(todos.length - HEADER_ROW).toBe(4);
+  });
+
+  test("新規登録ボタンがある", async () => {
+    renderApp();
+    await waitForTable();
+
+    const recordButton = screen.getByRole('button', { name: /新規登録/i });
+    expect(recordButton).toBeInTheDocument();
+  });
+
+  test("テーブルを見ることが出来る", async () => {
+    renderApp();
+    await waitForTable();
+
+    const todosTable = screen.getByTestId('table');
+    expect(todosTable).toBeInTheDocument();
   });
 });

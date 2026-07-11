@@ -25,14 +25,14 @@ function App() {
   }, []);
 
   if (isTableLoading) {
-    return <p>Loading...</p>
+    return <p data-testid="loading-screen">Loading...</p>
   }
 
   const onClickAdd = () => alert("test.");
 
   return (
     <>
-      <h1 data-testid="title">学習ログ</h1>
+      <h1 data-testid="title">学習記録アプリ</h1>
 
       <PrimaryButton onClick={onClickAdd}>新規登録</PrimaryButton>
 
