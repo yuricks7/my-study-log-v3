@@ -24,6 +24,7 @@ describe('useRecordList', () => {
       await result.current.fetchList();
     });
 
+    // 値を決め打ちしてるので変える余地あり
     expect(result.current.records[0].title).toBe('勉強の記録1');
     expect(result.current.records[0].time).toBe(1);
     expect(result.current.sum).toBe(85);
