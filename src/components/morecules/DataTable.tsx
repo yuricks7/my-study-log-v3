@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { Table } from "@chakra-ui/react";
 
 import { RiPencilFill } from "react-icons/ri";
@@ -10,8 +10,7 @@ type Props = {
   records: Record[];
 }
 
-export const DataTable: React.FC<Props>
-= memo((props) => {
+export const DataTable: React.FC<Props> = memo((props) => {
   const { records } = props;
 
   return (

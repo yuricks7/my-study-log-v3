@@ -25,4 +25,8 @@ export type StatesType = {
   handleAdd: (title: string, time: number) => void;
   handleUpdate?: (id: string, title: string, time: number) => void;
   handleDelete?: (id: string) => void;
+
+  isDialogOpen?: boolean;
+  openDialog: () => void;
+  closeDialog: () => void;
 }

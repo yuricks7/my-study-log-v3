@@ -1,6 +1,6 @@
 
 import { useContext } from "react";
-import { RecordContext } from "@/providers/RecordProvider";
+import { RecordContext } from "@/providers/RecordProvider/RecordProvider";
 
 import type { StatesType } from "@/@types/StatesType";
 
