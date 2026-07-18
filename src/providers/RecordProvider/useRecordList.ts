@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Record } from "@/domain/record";
-import { dbUsecase } from "@/utils/supabase/dbUsecase";
 import { calcSum } from "@/utils/recordUtils";
 
 export function useRecordList() {
@@ -8,10 +7,13 @@ export function useRecordList() {
   const [sum, setSum] = useState(0);
 
   const fetchList = async () => {
+    // テストのエラー対策（遅延import）
+    const { dbUsecase } = await import('@/utils/supabase/dbUsecase');
+
     const list = await dbUsecase.fetchList();
     setRecords(list);
     setSum(calcSum(list));
-  }
+  };
 
   useEffect(() => {
     fetchList();

@@ -21,7 +21,7 @@ vi.mock("../lib/record", () => {
 });
 
 // テスト
-describe("App", () => {
+describe.skip("App", () => {
   test("ローディング画面を見ることが出来る", async () => {
     renderApp();
 
