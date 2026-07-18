@@ -7,6 +7,7 @@ import { useRecordForm } from "./useRecordForm";
 import { useRecordList } from "./useRecordList";
 import { useDialogState } from "./useDialogState";
 import { useRecordActions } from "./useRecordActions";
+import { useSelectedRecord } from "./useSelectedRecord";
 
 type Props = {
   children: React.ReactNode;
@@ -19,7 +20,27 @@ export const RecordProvider: FC<Props> = (props) => {
 
   const form = useRecordForm();
   const list = useRecordList();
-  const dialog = useDialogState();
+
+  const { selectedRecord, setSelectedRecord } = useSelectedRecord();
+  const { isEditOpen, isCreateOpen, setEditOpen, setCreateOpen } = useDialogState();
+
+  const openEditDialog = (record) => {
+    setSelectedRecord(record);
+    setEditOpen(true);
+  };
+
+  const openCreateDialog = () => {
+    setSelectedRecord(null);
+    setCreateOpen(true);
+  };
+
+  const closeAll = () => {
+    form.initializeForm();
+    list.fetchList();
+    setEditOpen(false);
+    setCreateOpen(false);
+  };
+
   const actions = useRecordActions(
     list.records,
     list.setRecords,
@@ -28,20 +49,18 @@ export const RecordProvider: FC<Props> = (props) => {
     form.initializeForm
   );
 
-  const closeDialog = () => {
-    form.initializeForm();
-    list.fetchList();
-    dialog.closeDialog();
-  }
-
-  const value = {
+  const value: StatesType = {
     ...form,
     ...list,
     ...actions,
-    isDialogOpen: dialog.isDialogOpen,
-    openDialog: dialog.openDialog,
-    closeDialog,
-    }
+    selectedRecord,
+    setSelectedRecord,
+    isCreateOpen,
+    isEditOpen,
+    openCreateDialog,
+    openEditDialog,
+    closeAll,
+  }
 
   return (
     <RecordContext.Provider value={value}>

@@ -22,11 +22,16 @@ export type StatesType = {
   updateSumTime?: (arr: Record[]) => number;
 
   onAdd?: (title: string, time: number) => void;
-  handleAdd: (title: string, time: number) => void;
+  handleAdd?: (title: string, time: number) => void;
   handleUpdate?: (id: string, title: string, time: number) => void;
   handleDelete?: (id: string) => void;
 
-  isDialogOpen?: boolean;
-  openDialog: () => void;
-  closeDialog: () => void;
+  selectedRecord?: Record | null;
+  setSelectedRecord?: (value: Record | null) => void;
+
+  isCreateOpen?: boolean;
+  isEditOpen?: boolean;
+  openCreateDialog?: () => void;
+  openEditDialog?: (id: string, title: string, time: number) => void;
+  closeAll?: () => void;
 }

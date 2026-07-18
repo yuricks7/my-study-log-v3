@@ -1,16 +1,24 @@
 import { useState } from "react";
 
 export function useDialogState() {
-  const [ isDialogOpen, setDialogOpen ] = useState(false);
+  const [ isCreateOpen, setCreateOpen ] = useState(false);
+  const [ isEditOpen, setEditOpen ] = useState(false);
 
-  const  openDialog = () => setDialogOpen(true);
-  const closeDialog = () => {
-    setDialogOpen(false);
-  }
+  // const openCreate = () => setCreateOpen(true);
+  // const openEdit = () => setEditOpen(true);
+
+  // const closeAll = () => {
+  //   setCreateOpen(false);
+  //   setEditOpen(false);
+  // };
 
   return {
-    isDialogOpen,
-    openDialog,
-    closeDialog
+    isCreateOpen,
+    isEditOpen,
+    setEditOpen,
+    setCreateOpen,
+    // openCreate,
+    // openEdit,
+    // closeAll,
   };
 }

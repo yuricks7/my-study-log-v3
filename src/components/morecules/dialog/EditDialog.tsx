@@ -32,8 +32,8 @@ export const EditDialog: React.FC<Props> = memo((props) => {
   const {
     title, setTitle,
     time, setTime,
-    handleAdd, handleUpdate,
-    isDialogOpen, closeDialog
+    handleUpdate,
+    isEditOpen, closeAll
   } = useRecord();
 
   const onChangeTitle = (event: any) => {
@@ -46,35 +46,19 @@ export const EditDialog: React.FC<Props> = memo((props) => {
     setTime(Number(event.target.value));
   };
 
-  const onClickAction = (id: string, title: string, time: number) => {
-    switch (pageTitle) {
-      case '新規登録':
-        return handleAdd(title, time);
-
-      case '記録編集':
-        return handleUpdate(id, title, time);
-
-      default:
-        let m = '';
-        m += '予期せぬエラーです。\n';
-        m += 'ダイアログのタイトルを正しく入力してください。'
-        alert(m);
-    };
-  }
-
   return (
     <DialogRoot
       lazyMount
-      open={isDialogOpen}
+      open={isEditOpen}
       onOpenChange={(e) => {
-        if (!e.open) closeDialog();
+        if (!e.open) closeAll();
       }}
       motionPreset="slide-in-bottom"
       trapFocus={false}
     >
       <DialogContent pb={2}>
         <DialogHeader>
-          <DialogTitle>{pageTitle}</DialogTitle>
+          <DialogTitle>{'記録編集'}</DialogTitle>
         </DialogHeader>
 
         <DialogBody mx={4}>
@@ -99,11 +83,11 @@ export const EditDialog: React.FC<Props> = memo((props) => {
           <DialogFooter>
             <PrimaryButton
               onClick={() => {
-                onClickAction(record.id, title, time);
-                closeDialog();
+                handleUpdate(record.id, title, time);
+                closeAll();
               }}
             >
-              {buttonLabel}
+              {'更新'}
             </PrimaryButton>
           </DialogFooter>
         )}
