@@ -61,7 +61,13 @@ export const EditDialog: React.FC<Props> = memo((props) => {
       motionPreset="scale"
       trapFocus={false}
     >
-      <DialogContent pb={2}>
+      <DialogContent
+        pb={2}
+        position="fixed"
+        top="50%"
+        left="50%"
+        transform="translate(-50%, -50%)"
+      >
         <DialogHeader>
           <DialogTitle>{'記録編集'}</DialogTitle>
         </DialogHeader>
