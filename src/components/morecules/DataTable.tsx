@@ -8,7 +8,7 @@ import type { Record } from "@/domain/record";
 import { ReactIconButton } from "@/components/atoms/button/ReactIconButton";
 
 import { useRecord } from "@/hooks/useRecord";
-import { EditDialog } from "./dialog/EditDialog";
+import { DialogForm } from "./dialog/DialogForm";
 
 type Props = {
   records: Record[];
@@ -17,7 +17,7 @@ type Props = {
 export const DataTable: React.FC<Props> = memo((props) => {
   const { records } = props;
 
-  const { openEditDialog } = useRecord();
+  const { openEditDialog, handleDelete } = useRecord();
 
   return (
     <>
@@ -39,16 +39,23 @@ export const DataTable: React.FC<Props> = memo((props) => {
 
             <Table.Cell>
               <ReactIconButton onClick={
-                () => {
-                  openEditDialog(record);
-              }}>
+                () => openEditDialog(record)
+              }>
                 <RiPencilFill/>
               </ReactIconButton>
             </Table.Cell>
 
             <Table.Cell>
               <ReactIconButton onClick={
-                () => alert('delete.')
+                () => {
+                  let m = "";
+                  m += "このレコードを削除しますか？\n";
+                  m += `学習内容: ${record.title}\n`;
+                  m += `学習時間: ${record.time}時間`;
+
+                  console.log(m);
+                  if (confirm(m)) handleDelete(record.id)
+                }
               }>
                 <FaTrashCan/>
               </ReactIconButton>
@@ -59,7 +66,11 @@ export const DataTable: React.FC<Props> = memo((props) => {
       </Table.Body>
     </Table.Root>
 
-    <EditDialog/>
+    <DialogForm
+      mode="edit"
+      pageTitle="記録編集"
+      buttonLabel="更新"
+    />
   </>
 );
 });

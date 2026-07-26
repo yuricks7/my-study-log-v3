@@ -57,8 +57,7 @@ export const EditDialog: React.FC<Props> = memo((props) => {
       onOpenChange={(e) => {
         if (!e.open) closeAll();
       }}
-      // motionPreset="slide-in-bottom"
-      motionPreset="scale"
+      motionPreset="slide-in-bottom"
       trapFocus={false}
     >
       <DialogContent

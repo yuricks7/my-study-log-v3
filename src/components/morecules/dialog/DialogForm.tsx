@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import {
   Input,
   DialogHeader,
@@ -13,19 +13,56 @@ import {
 
 import type React from 'react';
 
+type Props = {
+  mode: string,
+  pageTitle: string,
+  buttonLabel: string,
+}
+
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 
 import { useRecord } from '@/hooks/useRecord';
 
-export const CreateDialog: React.FC = memo(() => {
-  const isAdmin = true;
+export const DialogForm: React.FC<Props> = memo((props) => {
+  const { mode, pageTitle, buttonLabel } = props;
 
   const {
     title, setTitle,
     time, setTime,
+    selectedRecord,
     handleAdd,
-    isCreateOpen, closeAll
+    handleUpdate,
+    isCreateOpen, isEditOpen,
+    closeAll
   } = useRecord();
+
+  const isOpen = mode === "create" ? isCreateOpen : isEditOpen;
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if (mode === "edit" && selectedRecord) {
+      setTitle(selectedRecord.title);
+      setTime(selectedRecord.time);
+    }
+
+    if (mode === "create") {
+      setTitle("");
+      setTime(0);
+    }
+  }, [isOpen, mode, selectedRecord]);
+
+  const onSubmit = () => {
+    if (mode === "create") {
+      handleAdd(title, time);
+
+    } else {
+      if (!selectedRecord) return;
+      handleUpdate(selectedRecord.id, title, time);
+    }
+
+    closeAll();
+  }
 
   const onChangeTitle = (event: any) => {
     // @ts-ignore TS18047: 'event.target' is possibly 'null'.
@@ -40,7 +77,7 @@ export const CreateDialog: React.FC = memo(() => {
   return (
     <DialogRoot
       lazyMount
-      open={isCreateOpen}
+      open={isOpen}
       onOpenChange={(e) => {
         if (!e.open) closeAll();
       }}
@@ -55,7 +92,7 @@ export const CreateDialog: React.FC = memo(() => {
         transform="translate(-50%, -50%)"
       >
         <DialogHeader>
-          <DialogTitle>{'新規登録'}</DialogTitle>
+          <DialogTitle>{pageTitle}</DialogTitle>
         </DialogHeader>
 
         <DialogBody mx={4}>
@@ -63,31 +100,22 @@ export const CreateDialog: React.FC = memo(() => {
             <Field.Label>学習内容</Field.Label>
             <Input
               value={title}
-              readOnly={!isAdmin}
               onChange={onChangeTitle}
             />
 
             <Field.Label>学習時間</Field.Label>
             <Input
               value={time}
-              readOnly={!isAdmin}
               onChange={onChangeTime}
             />
           </Field.Root>
         </DialogBody>
 
-        {isAdmin && (
-          <DialogFooter>
-            <PrimaryButton
-              onClick={() => {
-                handleAdd(title, time);
-                closeAll();
-              }}
-            >
-              {'登録'}
-            </PrimaryButton>
-          </DialogFooter>
-        )}
+        <DialogFooter>
+          <PrimaryButton onClick={onSubmit}>
+            {buttonLabel}
+          </PrimaryButton>
+        </DialogFooter>
 
         <DialogCloseTrigger />
       </DialogContent>

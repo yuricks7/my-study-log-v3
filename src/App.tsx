@@ -5,9 +5,9 @@ import { Record } from '@/domain/record';
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 import { DataTable } from '@/components/morecules/DataTable';
-import { CreateDialog } from './components/morecules/dialog/CreateDialog';
 
 import { useRecord } from '@/hooks/useRecord';
+import { DialogForm } from './components/morecules/dialog/DialogForm';
 
 function App() {
   // ==========================
@@ -40,8 +40,10 @@ function App() {
 
       <DataTable records={records} />
 
-      <CreateDialog
-        record={record ?? { id: '', title: '', time: 0 }}
+      <DialogForm
+        mode="create"
+        pageTitle="新規登録"
+        buttonLabel="登録"
       />
     </>
   )

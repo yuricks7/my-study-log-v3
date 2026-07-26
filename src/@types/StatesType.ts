@@ -24,7 +24,7 @@ export type StatesType = {
   onAdd?: (title: string, time: number) => void;
   handleAdd: (title: string, time: number) => void;
   handleUpdate: (id: string, title: string, time: number) => void;
-  handleDelete?: (id: string) => void;
+  handleDelete: (id: string) => void;
 
   selectedRecord: Record | null;
   setSelectedRecord: (value: Record | null) => void;
@@ -32,6 +32,6 @@ export type StatesType = {
   isCreateOpen?: boolean;
   isEditOpen?: boolean;
   openCreateDialog?: () => void;
-  openEditDialog?: (record: Record) => void;
+  openEditDialog: (record: Record) => void;
   closeAll: () => void;
 }
