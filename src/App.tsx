@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Flex } from '@chakra-ui/react'
 
-import { Record } from '@/domain/record';
-
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 import { DataTable } from '@/components/morecules/DataTable';
 
