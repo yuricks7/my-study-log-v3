@@ -12,21 +12,12 @@ import {
 } from '@chakra-ui/react'
 
 import type React from 'react';
-import type { Record } from '@/domain/record';
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 
 import { useRecord } from '@/hooks/useRecord';
 
-type Props = {
-  pageTitle: string;
-  buttonLabel: string;
-  record: Record | null;
-  onClickButton: () => void;
-}
-
-export const CreateDialog: React.FC<Props> = memo((props) => {
-  const { pageTitle, buttonLabel, record } = props;
+export const CreateDialog: React.FC = memo(() => {
   const isAdmin = true;
 
   const {

@@ -41,8 +41,6 @@ function App() {
       <DataTable records={records} />
 
       <CreateDialog
-        // pageTitle={'新規登録'}
-        // buttonLabel={'登録'}
         record={record ?? { id: '', title: '', time: 0 }}
       />
     </>

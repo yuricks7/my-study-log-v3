@@ -1,4 +1,4 @@
-import React, { memo, useState } from "react";
+import React, { memo } from "react";
 import { Table } from "@chakra-ui/react";
 import { RiPencilFill } from "react-icons/ri";
 import { FaTrashCan } from "react-icons/fa6";
@@ -8,6 +8,7 @@ import type { Record } from "@/domain/record";
 import { ReactIconButton } from "@/components/atoms/button/ReactIconButton";
 
 import { useRecord } from "@/hooks/useRecord";
+import { EditDialog } from "./dialog/EditDialog";
 
 type Props = {
   records: Record[];
@@ -19,6 +20,7 @@ export const DataTable: React.FC<Props> = memo((props) => {
   const { openEditDialog } = useRecord();
 
   return (
+    <>
     <Table.Root data-testid="table">
       <Table.Header>
         <Table.Row>
@@ -39,7 +41,6 @@ export const DataTable: React.FC<Props> = memo((props) => {
               <ReactIconButton onClick={
                 () => {
                   openEditDialog(record);
-                  // openDialog();
               }}>
                 <RiPencilFill/>
               </ReactIconButton>
@@ -57,5 +58,8 @@ export const DataTable: React.FC<Props> = memo((props) => {
         ))}
       </Table.Body>
     </Table.Root>
-  );
+
+    <EditDialog/>
+  </>
+);
 });

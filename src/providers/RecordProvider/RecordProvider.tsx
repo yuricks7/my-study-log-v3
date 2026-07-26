@@ -2,6 +2,7 @@ import { createContext } from "react";
 
 import type { FC } from "react";
 import type { StatesType } from "@/@types/StatesType";
+import type { Record } from "@/domain/record";
 
 import { useRecordForm } from "./useRecordForm";
 import { useRecordList } from "./useRecordList";
@@ -24,7 +25,7 @@ export const RecordProvider: FC<Props> = (props) => {
   const { selectedRecord, setSelectedRecord } = useSelectedRecord();
   const { isEditOpen, isCreateOpen, setEditOpen, setCreateOpen } = useDialogState();
 
-  const openEditDialog = (record) => {
+  const openEditDialog = (record: Record) => {
     setSelectedRecord(record);
     setEditOpen(true);
   };

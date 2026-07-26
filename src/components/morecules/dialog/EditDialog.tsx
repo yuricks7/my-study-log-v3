@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
 import {
   Input,
   DialogHeader,
@@ -12,29 +12,33 @@ import {
 } from '@chakra-ui/react'
 
 import type React from 'react';
-import type { Record } from '@/domain/record';
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 
 import { useRecord } from '@/hooks/useRecord';
 
 type Props = {
-  pageTitle: string;
-  buttonLabel: string;
-  record: Record;
   onClickButton: () => void;
 }
 
 export const EditDialog: React.FC<Props> = memo((props) => {
-  const { pageTitle, buttonLabel, record } = props;
   const isAdmin = true;
 
   const {
+    selectedRecord,
     title, setTitle,
     time, setTime,
     handleUpdate,
     isEditOpen, closeAll
   } = useRecord();
+
+  // ダイアログの初期値を設定する
+  useEffect(() => {
+    if (isEditOpen && selectedRecord) {
+      setTitle(selectedRecord.title);
+      setTime(selectedRecord.time);
+    }
+  }, [isEditOpen, selectedRecord])
 
   const onChangeTitle = (event: any) => {
     // @ts-ignore TS18047: 'event.target' is possibly 'null'.
@@ -53,7 +57,8 @@ export const EditDialog: React.FC<Props> = memo((props) => {
       onOpenChange={(e) => {
         if (!e.open) closeAll();
       }}
-      motionPreset="slide-in-bottom"
+      // motionPreset="slide-in-bottom"
+      motionPreset="scale"
       trapFocus={false}
     >
       <DialogContent pb={2}>
@@ -83,7 +88,8 @@ export const EditDialog: React.FC<Props> = memo((props) => {
           <DialogFooter>
             <PrimaryButton
               onClick={() => {
-                handleUpdate(record.id, title, time);
+                if (!selectedRecord) return;
+                handleUpdate(selectedRecord.id, title, time);
                 closeAll();
               }}
             >
