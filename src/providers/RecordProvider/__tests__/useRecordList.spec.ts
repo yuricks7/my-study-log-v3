@@ -1,7 +1,7 @@
 import '@testing-library/jest-dom';
 import { renderHook, act } from '@testing-library/react';
 import { useRecordList } from '../useRecordList';
-import { calcSum } from '@/utils/recordUtils';
+// import { calcSum } from '@/utils/recordUtils';
 
 // Record を使わない（プレーンオブジェクトでモック）
 const mockRecords = [

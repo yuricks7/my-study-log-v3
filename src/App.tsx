@@ -13,9 +13,8 @@ function App() {
   // ==========================
   //  states
   // ==========================
-  const { records, openCreateDialog } = useRecord();
+  const { records = [], openCreateDialog } = useRecord();
 
-  const [ record, setRecord ] = useState<Record | null>(null);
   const [ isTableLoading, setIsTableLoading ] = useState(true);
 
   // ==========================

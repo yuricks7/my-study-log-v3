@@ -31,7 +31,7 @@ export type StatesType = {
 
   isCreateOpen?: boolean;
   isEditOpen?: boolean;
-  openCreateDialog?: () => void;
+  openCreateDialog: () => void;
   openEditDialog: (record: Record) => void;
   closeAll: () => void;
 }
