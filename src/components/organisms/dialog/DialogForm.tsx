@@ -1,6 +1,5 @@
 import { memo, useEffect } from 'react';
 import {
-  Input,
   DialogHeader,
   DialogContent,
   DialogTitle,
@@ -10,16 +9,9 @@ import {
   DialogRoot,
 } from '@chakra-ui/react'
 
-import {
-  FormControl,
-  FormLabel,
-} from "@chakra-ui/form-control";
-
 import { useForm } from "react-hook-form";
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 import { useRecord } from '@/hooks/useRecord';
-import { ValidatedInput } from '@/components/atoms/form/ValidatedInput';
-import { ValidationErrorMessage } from '@/components/atoms/form/ValidationErrorMessage';
 import { FormField } from '@/components/molecules/FormField';
 
 type Props = {
