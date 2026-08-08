@@ -8,7 +8,7 @@ import type { Record } from "@/domain/record";
 import { ReactIconButton } from "@/components/atoms/button/ReactIconButton";
 
 import { useRecord } from "@/hooks/useRecord";
-import { DialogForm } from "./dialog/DialogForm";
+import { DialogForm } from "../dialog/DialogForm";
 
 type Props = {
   records: Record[];

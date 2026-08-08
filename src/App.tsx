@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Flex } from '@chakra-ui/react'
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
-import { DataTable } from '@/components/morecules/DataTable';
+import { DataTable } from '@/components/organisms/table/DataTable';
 
 import { useRecord } from '@/hooks/useRecord';
-import { DialogForm } from './components/morecules/dialog/DialogForm';
+import { DialogForm } from './components/organisms/dialog/DialogForm';
 
 function App() {
   // ==========================
