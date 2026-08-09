@@ -21,7 +21,7 @@ export const DataTable: React.FC<Props> = memo((props) => {
 
   return (
     <>
-      <Table.Root size="lg" data-testid="table">
+      <Table.Root size="lg" interactive stickyHeader data-testid="table">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>学習内容</Table.ColumnHeader>
