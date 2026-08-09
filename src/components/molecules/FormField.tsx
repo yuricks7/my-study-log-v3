@@ -1,7 +1,7 @@
 import { FormControl, FormLabel } from "@chakra-ui/form-control";
 
-import { ValidatedInput } from "../atoms/form/ValidatedInput";
-import { ValidationErrorMessage } from "../atoms/form/ValidationErrorMessage";
+import { ValidatedInput } from "@/components/atoms/Form/ValidatedInput";
+import { ValidationErrorMessage } from "@/components/atoms/Form/ValidationErrorMessage";
 
 type Props = {
   label: string;
