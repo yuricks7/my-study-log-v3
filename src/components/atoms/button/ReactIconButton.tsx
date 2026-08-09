@@ -4,18 +4,19 @@ import { IconButton } from "@chakra-ui/react";
 type Props = {
   children: React.ReactNode;
   onClick: () => void;
+  label: string;
 }
 
 export const ReactIconButton: React.FC<Props>
 = memo((props) => {
-  const { children, onClick } = props;
+  const { children, onClick, label = "メニューボタン" } = props;
 
   return (
     <IconButton
       size="sm"
       variant="plain"
-      aria-label="メニューボタン"
-      display={{ base: "block", md: "none" }}
+      aria-label={label}
+      display="block"
       onClick={onClick}
     >
       {children}

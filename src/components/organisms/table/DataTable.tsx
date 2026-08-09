@@ -21,13 +21,13 @@ export const DataTable: React.FC<Props> = memo((props) => {
 
   return (
     <>
-      <Table.Root data-testid="table" size="sm">
+      <Table.Root size="lg" data-testid="table">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>学習内容</Table.ColumnHeader>
             <Table.ColumnHeader>学習時間</Table.ColumnHeader>
-            <Table.ColumnHeader></Table.ColumnHeader>
-            <Table.ColumnHeader></Table.ColumnHeader>
+            <Table.ColumnHeader>x</Table.ColumnHeader>
+            <Table.ColumnHeader>x</Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
@@ -38,25 +38,29 @@ export const DataTable: React.FC<Props> = memo((props) => {
               <Table.Cell>{`${record.time}時間`}</Table.Cell>
 
               <Table.Cell>
-                <ReactIconButton onClick={
-                  () => openEditDialog(record)
-                }>
+                <ReactIconButton
+                  label="edit"
+                  onClick={
+                    () => openEditDialog(record)
+                  }
+                >
                   <RiPencilFill/>
                 </ReactIconButton>
               </Table.Cell>
 
               <Table.Cell>
-                <ReactIconButton onClick={
-                  () => {
-                    let m = "";
-                    m += "このレコードを削除しますか？\n";
-                    m += `学習内容: ${record.title}\n`;
-                    m += `学習時間: ${record.time}時間`;
-
-                    console.log(m);
-                    if (confirm(m)) handleDelete(record.id)
+                <ReactIconButton
+                  label="delete"
+                  onClick={
+                    () => {
+                      let m = "";
+                      m += "このレコードを削除しますか？\n";
+                      m += `学習内容: ${record.title}\n`;
+                      m += `学習時間: ${record.time}時間`;
+                      if (confirm(m)) handleDelete(record.id)
+                    }
                   }
-                }>
+                >
                   <FaTrashCan/>
                 </ReactIconButton>
               </Table.Cell>
