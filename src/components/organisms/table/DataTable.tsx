@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Stack, Table } from "@chakra-ui/react";
+import { Table } from "@chakra-ui/react";
 import { RiPencilFill } from "react-icons/ri";
 import { FaTrashCan } from "react-icons/fa6";
 

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Box, Center, Flex, Heading, Stack } from '@chakra-ui/react'
+import { Center, Flex, Heading, Stack } from '@chakra-ui/react'
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 import { DataTable } from '@/components/organisms/table/DataTable';
