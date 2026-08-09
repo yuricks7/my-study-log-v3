@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Table } from "@chakra-ui/react";
+import { Stack, Table } from "@chakra-ui/react";
 import { RiPencilFill } from "react-icons/ri";
 import { FaTrashCan } from "react-icons/fa6";
 
@@ -21,56 +21,56 @@ export const DataTable: React.FC<Props> = memo((props) => {
 
   return (
     <>
-    <Table.Root data-testid="table">
-      <Table.Header>
-        <Table.Row>
-          <Table.ColumnHeader>学習内容</Table.ColumnHeader>
-          <Table.ColumnHeader>学習時間</Table.ColumnHeader>
-          <Table.ColumnHeader></Table.ColumnHeader>
-          <Table.ColumnHeader></Table.ColumnHeader>
-        </Table.Row>
-      </Table.Header>
-      <Table.Body>
-        {records.map((record: Record) => (
-          <Table.Row key={record.id}>
-            <Table.Cell>{record.title}</Table.Cell>
-
-            <Table.Cell>{`${record.time}時間`}</Table.Cell>
-
-            <Table.Cell>
-              <ReactIconButton onClick={
-                () => openEditDialog(record)
-              }>
-                <RiPencilFill/>
-              </ReactIconButton>
-            </Table.Cell>
-
-            <Table.Cell>
-              <ReactIconButton onClick={
-                () => {
-                  let m = "";
-                  m += "このレコードを削除しますか？\n";
-                  m += `学習内容: ${record.title}\n`;
-                  m += `学習時間: ${record.time}時間`;
-
-                  console.log(m);
-                  if (confirm(m)) handleDelete(record.id)
-                }
-              }>
-                <FaTrashCan/>
-              </ReactIconButton>
-            </Table.Cell>
-
+      <Table.Root data-testid="table" size="sm">
+        <Table.Header>
+          <Table.Row>
+            <Table.ColumnHeader>学習内容</Table.ColumnHeader>
+            <Table.ColumnHeader>学習時間</Table.ColumnHeader>
+            <Table.ColumnHeader></Table.ColumnHeader>
+            <Table.ColumnHeader></Table.ColumnHeader>
           </Table.Row>
-        ))}
-      </Table.Body>
-    </Table.Root>
+        </Table.Header>
+        <Table.Body>
+          {records.map((record: Record) => (
+            <Table.Row key={record.id}>
+              <Table.Cell>{record.title}</Table.Cell>
 
-    <DialogForm
-      mode="edit"
-      pageTitle="記録編集"
-      buttonLabel="更新"
-    />
-  </>
-);
+              <Table.Cell>{`${record.time}時間`}</Table.Cell>
+
+              <Table.Cell>
+                <ReactIconButton onClick={
+                  () => openEditDialog(record)
+                }>
+                  <RiPencilFill/>
+                </ReactIconButton>
+              </Table.Cell>
+
+              <Table.Cell>
+                <ReactIconButton onClick={
+                  () => {
+                    let m = "";
+                    m += "このレコードを削除しますか？\n";
+                    m += `学習内容: ${record.title}\n`;
+                    m += `学習時間: ${record.time}時間`;
+
+                    console.log(m);
+                    if (confirm(m)) handleDelete(record.id)
+                  }
+                }>
+                  <FaTrashCan/>
+                </ReactIconButton>
+              </Table.Cell>
+
+            </Table.Row>
+          ))}
+        </Table.Body>
+      </Table.Root>
+
+      <DialogForm
+        mode="edit"
+        pageTitle="記録編集"
+        buttonLabel="更新"
+      />
+    </>
+  );
 });

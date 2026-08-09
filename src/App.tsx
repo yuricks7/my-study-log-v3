@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Flex } from '@chakra-ui/react'
+import { Box, Center, Flex, Heading, Stack } from '@chakra-ui/react'
 
 import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
 import { DataTable } from '@/components/organisms/table/DataTable';
@@ -28,20 +28,24 @@ function App() {
 
   return (
     <>
-      <h1 data-testid="title">学習記録アプリ</h1>
+      <Stack>
+        <Center>
+          <Heading as="h1" size="4xl" data-testid="title">学習記録アプリ</Heading>
+        </Center>
 
-      <Flex justifyContent={'flex-end'} >
-        <PrimaryButton onClick={openCreateDialog}
-        >新規登録</PrimaryButton>
-      </Flex>
+        <Flex justifyContent={'flex-end'} >
+          <PrimaryButton onClick={openCreateDialog}
+          >新規登録</PrimaryButton>
+        </Flex>
 
-      <DataTable records={records} />
+        <DataTable records={records} />
 
-      <DialogForm
-        mode="create"
-        pageTitle="新規登録"
-        buttonLabel="登録"
-      />
+        <DialogForm
+          mode="create"
+          pageTitle="新規登録"
+          buttonLabel="登録"
+        />
+      </Stack>
     </>
   )
 }
