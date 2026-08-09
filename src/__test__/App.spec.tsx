@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom";
 import { screen } from "@testing-library/react";
 
-import { Record } from "../domain/record";
+import { Record } from "@/domain/record";
 import { renderApp } from "../../test-utils/renderApp";
 import { waitForTable } from "../../test-utils/waitForTable";
 
@@ -13,10 +13,10 @@ const mockGetAllRecords = vi.fn().mockResolvedValue([
   new Record('4', "Title4", 4, "2021-01-01T000:00:00Z"),
 ]);
 
-vi.mock("../lib/record", () => {
+vi.mock("@/lib/record", () => {
   return {
-    // モックしたい関数: () => モック関数(),
-    GetAllRecords: () => mockGetAllRecords(),
+    // モックしたい関数: モック関数,
+    GetAllRecords: mockGetAllRecords,
   };
 });
 

@@ -1,32 +1,49 @@
-import '@testing-library/jest-dom';
 import { renderHook, act } from '@testing-library/react';
-import { useRecordList } from '../useRecordList';
-// import { calcSum } from '@/utils/recordUtils';
+import { vi } from 'vitest';
+import type { Mock } from 'vitest';
 
-// Record を使わない（プレーンオブジェクトでモック）
-const mockRecords = [
-  { id: '1', title: 'Title1', time: 1, created_at: '', updated_at: '' },
-  { id: '2', title: 'Title2', time: 2, created_at: '', updated_at: '' },
-];
+// useRecordList が通常 import するモジュールを先にモックする
+vi.mock('@/utils/supabase/dbUsecase', () => {
+  return {
+    dbUsecase: {
+      fetchList: vi.fn(), // ここがモック関数になる
+    },
+  };
+});
 
-// dbUsecase をモック
-vi.mock('@/utils/supabase/dbUsecase', () => ({
-  dbUsecase: {
-    fetchList: vi.fn().mockResolvedValue(mockRecords),
-  },
-}));
+import { useRecordList } from '@/providers/RecordProvider/useRecordList';
+import { dbUsecase } from '@/utils/supabase/dbUsecase';
+import { Record } from '@/domain/record';
 
-describe('useRecordList', () => {
+describe('useRecordActions', () => {
   test('fetchList が Supabase のデータを正しくセットする', async () => {
+    // Supabase が返す「生データ」をモック
+    const raw = [
+      { id: '1', title: 'A', time: 10, created_at: '2024/01/01' },
+      { id: '2', title: 'B', time: 20, created_at: '2024/01/02' },
+    ];
+
+    // fetchList の返り値を差し替え（Record.newRecord を通す）
+    (dbUsecase.fetchList as Mock).mockResolvedValue(
+      raw.map(r => Record.newRecord(r.id, r.title, r.time, r.created_at))
+    );
+
     const { result } = renderHook(() => useRecordList());
 
     await act(async () => {
       await result.current.fetchList();
     });
 
-    // 値を決め打ちしてるので変える余地あり
-    expect(result.current.records[0].title).toBe('勉強の記録1');
-    expect(result.current.records[0].time).toBe(1);
-    expect(result.current.sum).toBe(85);
+    // records が正しくセットされているか
+    expect(result.current.records).toHaveLength(2);
+    expect(result.current.records[0]).toMatchObject({
+      id: '1',
+      title: 'A',
+      time: 10,
+      created_at: '2024/01/01',
+    });
+
+    // sum が正しく計算されているか
+    expect(result.current.sum).toBe(30);
   });
 });
