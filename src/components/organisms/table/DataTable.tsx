@@ -26,8 +26,8 @@ export const DataTable: React.FC<Props> = memo((props) => {
           <Table.Row>
             <Table.ColumnHeader>学習内容</Table.ColumnHeader>
             <Table.ColumnHeader>学習時間</Table.ColumnHeader>
-            <Table.ColumnHeader>x</Table.ColumnHeader>
-            <Table.ColumnHeader>x</Table.ColumnHeader>
+            <Table.ColumnHeader></Table.ColumnHeader>
+            <Table.ColumnHeader></Table.ColumnHeader>
           </Table.Row>
         </Table.Header>
         <Table.Body>
