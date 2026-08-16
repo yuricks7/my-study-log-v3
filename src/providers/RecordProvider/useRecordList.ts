@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Record } from "@/domain/record";
-import { calcSum } from "@/utils/recordUtils";
+import { calcSum } from "@/utils/functions/recordUtils";
 
 import { dbUsecase } from '@/utils/supabase/dbUsecase';
 

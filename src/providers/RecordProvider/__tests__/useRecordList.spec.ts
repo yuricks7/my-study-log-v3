@@ -2,6 +2,10 @@ import { renderHook, act } from '@testing-library/react';
 import { vi } from 'vitest';
 import type { Mock } from 'vitest';
 
+import { useRecordList } from '@/providers/RecordProvider/useRecordList';
+import { dbUsecase } from '@/utils/supabase/dbUsecase';
+import { Record } from '@/domain/record';
+
 // useRecordList が通常 import するモジュールを先にモックする
 vi.mock('@/utils/supabase/dbUsecase', () => {
   return {
@@ -10,10 +14,6 @@ vi.mock('@/utils/supabase/dbUsecase', () => {
     },
   };
 });
-
-import { useRecordList } from '@/providers/RecordProvider/useRecordList';
-import { dbUsecase } from '@/utils/supabase/dbUsecase';
-import { Record } from '@/domain/record';
 
 describe('useRecordActions', () => {
   test('fetchList が Supabase のデータを正しくセットする', async () => {

@@ -13,6 +13,7 @@ export const ValidatedInput: React.FC<Props> = ({
 }) => {
   return (
     <Input
+      data-testid={`input-${type}`}
       type={type}
       {...register}
       borderColor={isInvalid ? "red.500" : "gray.300"}

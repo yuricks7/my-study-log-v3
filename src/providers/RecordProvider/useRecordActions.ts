@@ -1,4 +1,4 @@
-import { addRecord, updateRecord, deleteRecord, calcSum } from "@/utils/recordUtils";
+import { addRecord, updateRecord, deleteRecord, calcSum } from "@/utils/functions/recordUtils";
 import { dbUsecase } from "@/utils/supabase/dbUsecase";
 import { Record } from "@/domain/record";
 
