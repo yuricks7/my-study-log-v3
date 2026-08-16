@@ -77,29 +77,34 @@ describe("学習記録アプリのテスト", () => {
     });
   });
 
-  // const titleRequiredMsg = "学習内容は必須です";
-  // const  timeRequiredMsg = "学習時間は必須です"
-  // // -------------------------------------------------------
-  // // 2. 学習内容がないときに登録するとエラーがでる
-  // // -------------------------------------------------------
-  // test("学習内容がないときに登録するとエラーがでる", async () => {
-  //   const { openButton } = setup();
+  const titleRequiredMsg = "学習内容は必須です";
+  const  timeRequiredMsg = "学習時間は必須です"
+  // -------------------------------------------------------
+  // 2. 学習内容がないときに登録するとエラーがでる
+  // -------------------------------------------------------
+  test("学習内容がないときに登録するとエラーがでる", async () => {
+    const { openButton } = setup();
 
-  //   await userEvent.click(openButton);
+    await userEvent.click(openButton);
 
-  //   const titleInput = screen.getByTestId("input-text");
-  //   const timeInput  = screen.getByTestId("input-number");
+    const titleInput = screen.getByTestId("input-text");
+    const timeInput  = screen.getByTestId("input-number");
 
-  //   userEvent.type(timeInput, "2");
+    // タイトルは一度触ってから空にする
+    await userEvent.type(titleInput, "a");
+    await userEvent.clear(titleInput);
 
-  //   const submitButton = screen.getByRole("button", { name: "登録" });
-  //   await userEvent.click(submitButton);
+    // 数値は入力
+    userEvent.type(timeInput, "2");
 
-  //   await waitFor(() => {
-  //     // expect(screen.getByText("1時間以上を入力してください")).toBeInTheDocument();
-  //     expect(screen.getByText(titleRequiredMsg)).toBeInTheDocument();
-  //   });
-  // });
+    const submitButton = screen.getByRole("button", { name: "登録" });
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      // expect(screen.getByText("1時間以上を入力してください")).toBeInTheDocument();
+      expect(screen.getByText(titleRequiredMsg)).toBeInTheDocument();
+    });
+  });
 
   // // -------------------------------------------------------
   // // 3. 学習時間がないときに登録するとエラーがでる

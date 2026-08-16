@@ -72,10 +72,12 @@ export const DialogForm: React.FC<Props> = memo((props) => {
   const onSubmit = (values: FormValues) => {
     if (mode === "create") {
       handleAdd(values.title, values.time);
+
     } else {
       if (!selectedRecord) return;
       handleUpdate(selectedRecord.id, values.title, values.time);
     }
+
     closeAll();
   };
 
@@ -101,11 +103,15 @@ export const DialogForm: React.FC<Props> = memo((props) => {
         </DialogHeader>
 
         <DialogBody mx={4}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(onSubmit)
+          }}>
 
             <FormField
               label="学習内容"
               register={register("title", {
+                value: "", // 初期値
                 required: "学習内容は必須です",
                 minLength: { value: 1, message: "1文字以上入力してください" }
               })}
