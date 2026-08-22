@@ -1,4 +1,5 @@
-import { memo, useEffect } from 'react';
+// src/components/organisms/dialog/DialogForm.tsx
+import React, { memo, useEffect } from "react";
 import {
   DialogHeader,
   DialogContent,
@@ -7,17 +8,16 @@ import {
   DialogFooter,
   DialogCloseTrigger,
   DialogRoot,
-} from '@chakra-ui/react'
-
+} from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { PrimaryButton } from '@/components/atoms/button/PrimaryButton';
-import { useRecord } from '@/hooks/useRecord';
-import { FormField } from '@/components/molecules/FormField';
+import { PrimaryButton } from "@/components/atoms/button/PrimaryButton";
+import { useRecord } from "@/hooks/useRecord";
+import { FormField } from "@/components/molecules/FormField";
 
 type Props = {
-  mode: "create" | "edit",
-  pageTitle: string,
-  buttonLabel: string,
+  mode: "create" | "edit";
+  pageTitle: string;
+  buttonLabel: string;
 };
 
 type FormValues = {
@@ -34,7 +34,7 @@ export const DialogForm: React.FC<Props> = memo((props) => {
     handleUpdate,
     isCreateOpen,
     isEditOpen,
-    closeAll
+    closeAll,
   } = useRecord();
 
   const isOpen = mode === "create" ? isCreateOpen : isEditOpen;
@@ -43,42 +43,34 @@ export const DialogForm: React.FC<Props> = memo((props) => {
     register,
     handleSubmit,
     reset,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormValues>({
-    defaultValues: {
-      title: "",
-      time: 0,
-    }
+    defaultValues: { title: "", time: 0 },
   });
 
   useEffect(() => {
     if (!isOpen) return;
 
     if (mode === "edit" && selectedRecord) {
-      reset({
-        title: selectedRecord.title,
-        time: selectedRecord.time,
-      });
-    }
-
-    if (mode === "create") {
-      reset({
-        title: "",
-        time: 0,
-      });
+      reset({ title: selectedRecord.title, time: selectedRecord.time });
+    } else if (mode === "create") {
+      reset({ title: "", time: 0 });
     }
   }, [isOpen, mode, selectedRecord, reset]);
 
-  const onSubmit = (values: FormValues) => {
+  const onValid = (values: FormValues) => {
+    console.log("onSubmit called", values);
     if (mode === "create") {
       handleAdd(values.title, values.time);
-
     } else {
       if (!selectedRecord) return;
       handleUpdate(selectedRecord.id, values.title, values.time);
     }
-
     closeAll();
+  };
+
+  const onInvalid = (errs: any) => {
+    console.log("onInvalid called", errs);
   };
 
   return (
@@ -103,36 +95,38 @@ export const DialogForm: React.FC<Props> = memo((props) => {
         </DialogHeader>
 
         <DialogBody mx={4}>
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(onSubmit)
-          }}>
-
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSubmit(onValid, onInvalid)(e);
+            }}
+          >
             <FormField
               label="学習内容"
-              register={register("title", {
-                value: "", // 初期値
+              name="title"
+              register={register}
+              rules={{
                 required: "学習内容は必須です",
-                minLength: { value: 1, message: "1文字以上入力してください" }
-              })}
+                minLength: { value: 1, message: "1文字以上入力してください" },
+              }}
               error={errors.title?.message}
             />
 
             <FormField
               label="学習時間"
+              name="time"
               type="number"
-              register={register("time", {
+              register={register}
+              rules={{
                 required: "学習時間は必須です",
                 valueAsNumber: true,
-                min: { value: 1, message: "1時間以上を入力してください" }
-              })}
+                min: { value: 1, message: "1時間以上を入力してください" },
+              }}
               error={errors.time?.message}
             />
 
             <DialogFooter mt={4}>
-              <PrimaryButton type="submit">
-                {buttonLabel}
-              </PrimaryButton>
+              <PrimaryButton type="submit">{buttonLabel}</PrimaryButton>
             </DialogFooter>
           </form>
         </DialogBody>
@@ -142,3 +136,6 @@ export const DialogForm: React.FC<Props> = memo((props) => {
     </DialogRoot>
   );
 });
+
+DialogForm.displayName = "DialogForm";
+export default DialogForm;

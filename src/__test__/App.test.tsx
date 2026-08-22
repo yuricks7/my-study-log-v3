@@ -16,14 +16,14 @@ vi.mock("@/utils/supabase/dbUsecase", () => ({
   },
 }));
 
-const mockRecords = [
-  {
-    id: "aaaaaa",
-    created_at: new Date(),
-    title: "勉強の記録10",
-    time: 10,
-  },
-];
+// const mockRecords = [
+//   {
+//     id: "aaaaaa",
+//     created_at: new Date(),
+//     title: "勉強の記録10",
+//     time: 10,
+//   },
+// ];
 
 describe("学習記録アプリのテスト", () => {
   const setup = () => {
@@ -33,6 +33,18 @@ describe("学習記録アプリのテスト", () => {
   };
 
   beforeEach(async () => {
+    // モックの初期設定
+    const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
+
+    // リセット
+    vi.resetAllMocks();
+  });
+
+  // -------------------------------------------------------
+  // 1. 学習記録が登録できること
+  // -------------------------------------------------------
+  test("学習記録が登録できること", async () => {
+    // モック
     const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
     const prevData = {
@@ -50,14 +62,9 @@ describe("学習記録アプリのテスト", () => {
 
     (dbUsecase.add as Mock).mockResolvedValue(newData);
     (dbUsecase.fetchList as Mock).mockResolvedValue([prevData, newData]);
-  });
 
-  // -------------------------------------------------------
-  // 1. 学習記録が登録できること
-  // -------------------------------------------------------
-  test("学習記録が登録できること", async () => {
+    // テスト
     const { openButton } = setup();
-
     await userEvent.click(openButton);
 
     const titleInput = screen.getByTestId("input-text");
@@ -70,6 +77,7 @@ describe("学習記録アプリのテスト", () => {
 
     const submitButton = screen.getByRole("button", { name: "登録" });
     await userEvent.click(submitButton);
+    screen.debug();
 
     await waitFor(() => {
       expect(screen.getByText(title)).toBeInTheDocument();
@@ -79,12 +87,25 @@ describe("学習記録アプリのテスト", () => {
 
   const titleRequiredMsg = "学習内容は必須です";
   const  timeRequiredMsg = "学習時間は必須です"
+
   // -------------------------------------------------------
   // 2. 学習内容がないときに登録するとエラーがでる
   // -------------------------------------------------------
   test("学習内容がないときに登録するとエラーがでる", async () => {
-    const { openButton } = setup();
+    // モック
+    const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
+    const prevData = {
+      id: "aaaaaa",
+      created_at: new Date(),
+      title: "勉強の記録10",
+      time: 10,
+    };
+
+    (dbUsecase.fetchList as Mock).mockResolvedValue([prevData]);
+
+    // テスト
+    const { openButton } = setup();
     await userEvent.click(openButton);
 
     const titleInput = screen.getByTestId("input-text");
@@ -101,24 +122,47 @@ describe("学習記録アプリのテスト", () => {
     await userEvent.click(submitButton);
 
     await waitFor(() => {
-      // expect(screen.getByText("1時間以上を入力してください")).toBeInTheDocument();
       expect(screen.getByText(titleRequiredMsg)).toBeInTheDocument();
     });
   });
 
-  // // -------------------------------------------------------
-  // // 3. 学習時間がないときに登録するとエラーがでる
-  // // -------------------------------------------------------
-  // test("学習時間がないときに登録するとエラーがでる", async () => {
-  //   const { titleInput, submitButton } = setup();
+  // -------------------------------------------------------
+  // 3. 学習時間がないときに登録するとエラーがでる
+  // -------------------------------------------------------
+  test("学習時間がないときに登録するとエラーがでる", async () => {
+    // モック
+    const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
-  //   userEvent.type(titleInput, "Ruby 勉強");
-  //   fireEvent.click(submitButton);
+    const prevData = {
+      id: "aaaaaa",
+      created_at: new Date(),
+      title: "勉強の記録10",
+      time: 10,
+    };
 
-  //   await waitFor(() => {
-  //     expect(screen.getByText(timeRequiredMsg)).toBeInTheDocument();
-  //   });
-  // });
+    (dbUsecase.fetchList as Mock).mockResolvedValue([prevData]);
+
+    // テスト
+    const { openButton } = setup();
+    await userEvent.click(openButton);
+
+    const titleInput = screen.getByTestId("input-text");
+    const timeInput  = screen.getByTestId("input-number");
+
+    // タイトルを入力
+    await userEvent.type(titleInput, "a");
+
+    // 数値は一度触ってから空にする
+    await userEvent.type(timeInput, "1");
+    await userEvent.clear(timeInput);
+
+    const submitButton = screen.getByRole("button", { name: "登録" });
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.getByText(timeRequiredMsg)).toBeInTheDocument();
+    });
+  });
 
   // // -------------------------------------------------------
   // // 4. 未入力のエラー（両方空）
