@@ -40,7 +40,7 @@ function App() {
 
         <DataTable records={records} />
 
-        {isCreateOpen && 
+        {isCreateOpen &&
           <DialogForm
             mode="create"
             pageTitle="新規登録"
