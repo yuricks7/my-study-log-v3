@@ -11,7 +11,7 @@ function App() {
   // ==========================
   //  states
   // ==========================
-  const { records = [], openCreateDialog } = useRecord();
+  const { records = [], openCreateDialog, isCreateOpen } = useRecord();
 
   const [ isTableLoading, setIsTableLoading ] = useState(true);
 
@@ -40,11 +40,13 @@ function App() {
 
         <DataTable records={records} />
 
-        <DialogForm
-          mode="create"
-          pageTitle="新規登録"
-          buttonLabel="登録"
-        />
+        {isCreateOpen &&
+          <DialogForm
+            mode="create"
+            pageTitle="新規登録"
+            buttonLabel="登録"
+          />
+        }
       </Stack>
     </>
   )

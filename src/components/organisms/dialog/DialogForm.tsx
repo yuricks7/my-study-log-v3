@@ -38,25 +38,39 @@ export const DialogForm: React.FC<Props> = memo((props) => {
   } = useRecord();
 
   const isOpen = mode === "create" ? isCreateOpen : isEditOpen;
+  // 早期 return で閉じているときは何もマウントしない
+  if (!isOpen) return null;
 
   const {
     register,
     handleSubmit,
     reset,
+    clearErrors,
     formState: { errors },
   } = useForm<FormValues>({
     defaultValues: { title: "", time: 0 },
   });
 
+  console.log("DialogForm mount - mode:", mode, "isOpen:", isOpen);
+
+  console.log("DialogForm register keys:", Object.keys(register || {})); // register が関数であれば無害
+  console.log("DialogForm initial selectedRecord id:", selectedRecord?.id ?? null);
+
+  console.log("DialogForm errors (initial):", errors); // フォームの formState.errors を監視
+
   useEffect(() => {
     if (!isOpen) return;
+
+    // 先に前のエラーを消す（UI がエラー表示のままになるのを防ぐ）
+    clearErrors();
 
     if (mode === "edit" && selectedRecord) {
       reset({ title: selectedRecord.title, time: selectedRecord.time });
     } else if (mode === "create") {
       reset({ title: "", time: 0 });
     }
-  }, [isOpen, mode, selectedRecord, reset]);
+
+  }, [isOpen, mode, selectedRecord, reset, clearErrors]);
 
   const onValid = (values: FormValues) => {
     console.log("onSubmit called", values);
@@ -75,7 +89,7 @@ export const DialogForm: React.FC<Props> = memo((props) => {
 
   return (
     <DialogRoot
-      lazyMount
+      lazyMount={true}
       open={isOpen}
       onOpenChange={(e) => {
         if (!e.open) closeAll();
@@ -83,24 +97,21 @@ export const DialogForm: React.FC<Props> = memo((props) => {
       motionPreset="slide-in-bottom"
       trapFocus={false}
     >
-      <DialogContent
-        pb={2}
-        position="fixed"
-        top="50%"
-        left="50%"
-        transform="translate(-50%, -50%)"
-      >
+      {isOpen && (
+        <DialogContent
+          key={`${mode}-${isOpen ? "open" : "closed"}-${selectedRecord?.id ?? ""}`}
+          pb={2}
+          position="fixed"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+        >
         <DialogHeader>
           <DialogTitle>{pageTitle}</DialogTitle>
         </DialogHeader>
 
         <DialogBody mx={4}>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              handleSubmit(onValid, onInvalid)(e);
-            }}
-          >
+          <form onSubmit={handleSubmit(onValid, onInvalid)}>
             <FormField
               label="学習内容"
               name="title"
@@ -133,6 +144,7 @@ export const DialogForm: React.FC<Props> = memo((props) => {
 
         <DialogCloseTrigger />
       </DialogContent>
+      )}
     </DialogRoot>
   );
 });

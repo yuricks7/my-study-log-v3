@@ -17,7 +17,7 @@ type Props = {
 export const DataTable: React.FC<Props> = memo((props) => {
   const { records } = props;
 
-  const { openEditDialog, handleDelete } = useRecord();
+  const { openEditDialog, handleDelete, isEditOpen } = useRecord();
 
   return (
     <>
@@ -70,11 +70,13 @@ export const DataTable: React.FC<Props> = memo((props) => {
         </Table.Body>
       </Table.Root>
 
-      <DialogForm
-        mode="edit"
-        pageTitle="記録編集"
-        buttonLabel="更新"
-      />
+      {isEditOpen &&
+        <DialogForm
+          mode="edit"
+          pageTitle="記録編集"
+          buttonLabel="更新"
+        />
+      }
     </>
   );
 });

@@ -1,9 +1,6 @@
+// src/components/molecules/FormField.tsx
 import React from "react";
-import { FormControl, FormLabel } from "@chakra-ui/form-control";
 import type { UseFormRegister, RegisterOptions } from "react-hook-form";
-
-import { ValidatedInput } from "@/components/atoms/Form/ValidatedInput";
-import { ValidationErrorMessage } from "@/components/atoms/Form/ValidationErrorMessage";
 
 type Props = {
   label: string;
@@ -22,25 +19,37 @@ export const FormField: React.FC<Props> = ({
   rules,
   error,
 }) => {
-  // デバッグログ（必要なら残す）
-  console.log("FormField error", error);
-
-  const isInvalid = !!error;
+  // デバッグ用ログ（必要なら残す）
+  console.log("FormField render - name:", name, "error:", error);
 
   return (
-    <FormControl isInvalid={isInvalid} mb={4}>
-      <FormLabel>{label}</FormLabel>
+    <div style={{ marginBottom: 16 }}>
+      <label htmlFor={name} style={{ display: "block", marginBottom: 6 }}>
+        {label}
+      </label>
 
-      {/* register(name, rules) の戻り値を直接 ValidatedInput に渡す */}
-      <ValidatedInput type={type} {...register(name, rules)} isInvalid={isInvalid} />
+      <input
+        id={name}
+        data-testid={type === "number" ? "input-number" : "input-text"}
+        {...register(name, rules)}
+        type={type}
+        style={{
+          width: "100%",
+          padding: 8,
+          border: "1px solid",
+          borderColor: error ? "#E53E3E" : "#CBD5E0",
+          borderRadius: 4,
+        }}
+      />
 
-      {isInvalid && (
-        <ValidationErrorMessage aria-live="polite">
+      {/* {error ? (
+        <div role="alert" style={{ color: "#E53E3E", marginTop: 6 }}>
           {error}
-        </ValidationErrorMessage>
-      )}
-    </FormControl>
+        </div>
+      ) : null} */}
+      {error && <div role="alert" style={{ color: "red" }}>{error}</div>}
+    </div>
   );
 };
 
-FormField.displayName = "FormField";
+export default FormField;
