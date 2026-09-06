@@ -38,25 +38,26 @@ export const DialogForm: React.FC<Props> = memo((props) => {
   } = useRecord();
 
   const isOpen = mode === "create" ? isCreateOpen : isEditOpen;
-  // 早期 return で閉じているときは何もマウントしない
-  if (!isOpen) return null;
+  // // 早期 return で閉じているときは何もマウントしない
+  // if (!isOpen) return null;
 
   const {
     register,
     handleSubmit,
     reset,
     clearErrors,
-    formState: { errors },
+    formState,
   } = useForm<FormValues>({
+    mode: "onSubmit",
     defaultValues: { title: "", time: 0 },
   });
 
-  console.log("DialogForm mount - mode:", mode, "isOpen:", isOpen);
+  // console.log("DialogForm mount - mode:", mode, "isOpen:", isOpen);
 
-  console.log("DialogForm register keys:", Object.keys(register || {})); // register が関数であれば無害
-  console.log("DialogForm initial selectedRecord id:", selectedRecord?.id ?? null);
+  // console.log("DialogForm register keys:", Object.keys(register || {})); // register が関数であれば無害
+  // console.log("DialogForm initial selectedRecord id:", selectedRecord?.id ?? null);
 
-  console.log("DialogForm errors (initial):", errors); // フォームの formState.errors を監視
+  // console.log("DialogForm errors (initial):", errors); // フォームの formState.errors を監視
 
   useEffect(() => {
     if (!isOpen) return;
@@ -120,7 +121,10 @@ export const DialogForm: React.FC<Props> = memo((props) => {
                 required: "学習内容は必須です",
                 minLength: { value: 1, message: "1文字以上入力してください" },
               }}
-              error={errors.title?.message}
+              error={formState.isSubmitted
+                ? formState.errors.title?.message
+                : undefined
+              }
             />
 
             <FormField
@@ -133,7 +137,10 @@ export const DialogForm: React.FC<Props> = memo((props) => {
                 valueAsNumber: true,
                 min: { value: 1, message: "1時間以上を入力してください" },
               }}
-              error={errors.time?.message}
+              error={formState.isSubmitted
+                ? formState.errors.time?.message
+                : undefined
+              }
             />
 
             <DialogFooter mt={4}>

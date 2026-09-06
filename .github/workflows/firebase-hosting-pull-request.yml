@@ -12,9 +12,20 @@ jobs:
     if: ${{ github.event.pull_request.head.repo.full_name == github.repository }}
     runs-on: ubuntu-latest
     steps:
-      - name: Run build
+      # 【修正】まず最初にリポジトリのコードをチェックアウト（ダウンロード）する
+      - name: Checkout repository
         uses: actions/checkout@v4
-      - run: npm ci && npm run build
+
+      - name: set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+
+      # 【修正】checkout を上に移動したため、ここはビルドコマンドの実行だけにします
+      - name: Run build
+        run: npm ci && npm run build
         env:
           VITE_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           VITE_SUPABASE_PUBLISHABLE_API_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_API_KEY }}

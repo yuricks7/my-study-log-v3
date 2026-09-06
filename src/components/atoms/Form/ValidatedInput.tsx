@@ -21,7 +21,8 @@ export const ValidatedInput = React.forwardRef<HTMLInputElement, Props>(
       <Input
         data-testid={`input-${type}`}
         type={type}
-        isInvalid={isInvalid}               // ← Chakra に伝える
+        // 一時的に消してみる
+        // isInvalid={isInvalid}               // ← Chakra に伝える
         borderColor={isInvalid ? "red.500" : "gray.300"}
         style={{ borderWidth: "1px", borderStyle: "solid" }}
         _focusVisible={{ borderColor: isInvalid ? "red.500" : "blue.500" }}

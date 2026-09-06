@@ -1,6 +1,6 @@
 # .github/workflows/auto-test.yml
 
-name: Test this project
+name: Test This Project
 
 on:
   push:

@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1788577560226" clover="3.2.0">
+  <project timestamp="1788577560226" name="All files">
+    <metrics statements="214" coveredstatements="146" conditionals="94" coveredconditionals="47" methods="61" coveredmethods="36" elements="369" coveredelements="229" complexity="0" loc="214" ncloc="214" packages="12" files="23" classes="23"/>
+    <package name="src">
+      <metrics statements="7" coveredstatements="7" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
+      <file name="App.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/App.tsx">
+        <metrics statements="7" coveredstatements="7" conditionals="5" coveredconditionals="5" methods="2" coveredmethods="2"/>
+        <line num="14" count="19" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="19" type="stmt"/>
+        <line num="21" count="19" type="stmt"/>
+        <line num="22" count="13" type="stmt"/>
+        <line num="25" count="19" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="3" type="stmt"/>
+        <line num="29" count="16" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.atoms.button">
+      <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
+      <file name="PrimaryButton.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/atoms/button/PrimaryButton.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="12" count="3" type="stmt"/>
+        <line num="14" count="13" type="cond" truecount="3" falsecount="0"/>
+        <line num="16" count="13" type="stmt"/>
+      </file>
+      <file name="ReactIconButton.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/atoms/button/ReactIconButton.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="10" count="3" type="stmt"/>
+        <line num="12" count="20" type="cond" truecount="1" falsecount="0"/>
+        <line num="14" count="20" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.molecules">
+      <metrics statements="3" coveredstatements="3" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+      <file name="FormField.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/molecules/FormField.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="7" coveredconditionals="7" methods="1" coveredmethods="1"/>
+        <line num="14" count="3" type="stmt"/>
+        <line num="23" count="16" type="stmt"/>
+        <line num="25" count="16" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.organisms.dialog">
+      <metrics statements="29" coveredstatements="25" conditionals="28" coveredconditionals="15" methods="5" coveredmethods="4"/>
+      <file name="DialogForm.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/organisms/dialog/DialogForm.tsx">
+        <metrics statements="29" coveredstatements="25" conditionals="28" coveredconditionals="15" methods="5" coveredmethods="4"/>
+        <line num="28" count="3" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="37" count="8" type="stmt"/>
+        <line num="40" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="42" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="49" count="8" type="stmt"/>
+        <line num="54" count="8" type="stmt"/>
+        <line num="56" count="8" type="cond" truecount="1" falsecount="1"/>
+        <line num="57" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="59" count="8" type="stmt"/>
+        <line num="61" count="8" type="stmt"/>
+        <line num="62" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="65" count="3" type="stmt"/>
+        <line num="67" count="3" type="cond" truecount="2" falsecount="2"/>
+        <line num="68" count="0" type="stmt"/>
+        <line num="69" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="70" count="3" type="stmt"/>
+        <line num="75" count="8" type="stmt"/>
+        <line num="76" count="1" type="stmt"/>
+        <line num="77" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="80" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="81" count="0" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="86" count="8" type="stmt"/>
+        <line num="87" count="2" type="stmt"/>
+        <line num="90" count="8" type="stmt"/>
+        <line num="95" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="152" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.components.organisms.table">
+      <metrics statements="11" coveredstatements="5" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+      <file name="DataTable.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/organisms/table/DataTable.tsx">
+        <metrics statements="11" coveredstatements="5" conditionals="4" coveredconditionals="1" methods="4" coveredmethods="2"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="18" count="10" type="stmt"/>
+        <line num="20" count="10" type="stmt"/>
+        <line num="22" count="10" type="stmt"/>
+        <line num="35" count="10" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="57" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
+        <line num="59" count="0" type="stmt"/>
+        <line num="60" count="0" type="cond" truecount="0" falsecount="2"/>
+      </file>
+    </package>
+    <package name="src.components.ui">
+      <metrics statements="23" coveredstatements="10" conditionals="18" coveredconditionals="6" methods="10" coveredmethods="3"/>
+      <file name="button.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/ui/button.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="10" coveredconditionals="6" methods="1" coveredmethods="1"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="13" type="stmt"/>
+        <line num="20" count="13" type="stmt"/>
+      </file>
+      <file name="color-mode.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/ui/color-mode.tsx">
+        <metrics statements="18" coveredstatements="5" conditionals="8" coveredconditionals="0" methods="8" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="13" count="3" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="32" count="0" type="stmt"/>
+        <line num="40" count="0" type="stmt"/>
+        <line num="41" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="2" type="stmt"/>
+        <line num="55" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="78" count="2" type="stmt"/>
+        <line num="80" count="0" type="stmt"/>
+        <line num="94" count="2" type="stmt"/>
+        <line num="96" count="0" type="stmt"/>
+      </file>
+      <file name="provider.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/components/ui/provider.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="10" count="3" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.domain">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+      <file name="record.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/domain/record.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="10" count="6" type="stmt"/>
+        <line num="11" count="6" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="26" count="4" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="33" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.hooks">
+      <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+      <file name="useRecord.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/hooks/useRecord.ts">
+        <metrics statements="5" coveredstatements="4" conditionals="2" coveredconditionals="1" methods="1" coveredmethods="1"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="37" type="stmt"/>
+        <line num="10" count="37" type="cond" truecount="1" falsecount="1"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="14" count="37" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.providers.RecordProvider">
+      <metrics statements="87" coveredstatements="63" conditionals="16" coveredconditionals="8" methods="17" coveredmethods="14"/>
+      <file name="RecordProvider.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/RecordProvider.tsx">
+        <metrics statements="21" coveredstatements="19" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="3"/>
+        <line num="17" count="3" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="10" type="stmt"/>
+        <line num="22" count="10" type="stmt"/>
+        <line num="23" count="10" type="stmt"/>
+        <line num="25" count="10" type="stmt"/>
+        <line num="26" count="10" type="stmt"/>
+        <line num="28" count="10" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="33" count="10" type="stmt"/>
+        <line num="34" count="3" type="stmt"/>
+        <line num="35" count="3" type="stmt"/>
+        <line num="38" count="10" type="stmt"/>
+        <line num="39" count="1" type="stmt"/>
+        <line num="40" count="1" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="45" count="10" type="stmt"/>
+        <line num="53" count="10" type="stmt"/>
+        <line num="66" count="10" type="stmt"/>
+      </file>
+      <file name="useDialogState.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/useDialogState.tsx">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="4" count="10" type="stmt"/>
+        <line num="5" count="10" type="stmt"/>
+        <line num="7" count="10" type="stmt"/>
+      </file>
+      <file name="useRecordActions.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/useRecordActions.ts">
+        <metrics statements="28" coveredstatements="12" conditionals="8" coveredconditionals="2" methods="5" coveredmethods="3"/>
+        <line num="12" count="10" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="17" count="1" type="stmt"/>
+        <line num="20" count="10" type="stmt"/>
+        <line num="21" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="1" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="27" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="31" count="10" type="stmt"/>
+        <line num="32" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="36" count="0" type="stmt"/>
+        <line num="37" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="42" count="10" type="stmt"/>
+        <line num="43" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="46" count="0" type="stmt"/>
+        <line num="49" count="10" type="stmt"/>
+      </file>
+      <file name="useRecordForm.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/useRecordForm.ts">
+        <metrics statements="24" coveredstatements="18" conditionals="8" coveredconditionals="6" methods="3" coveredmethods="3"/>
+        <line num="4" count="18" type="stmt"/>
+        <line num="5" count="18" type="stmt"/>
+        <line num="7" count="18" type="stmt"/>
+        <line num="8" count="18" type="stmt"/>
+        <line num="10" count="18" type="stmt"/>
+        <line num="11" count="3" type="cond" truecount="4" falsecount="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="16" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="17" count="0" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="22" count="0" type="stmt"/>
+        <line num="23" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="27" count="2" type="stmt"/>
+        <line num="28" count="2" type="stmt"/>
+        <line num="29" count="2" type="stmt"/>
+        <line num="33" count="18" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="38" count="18" type="stmt"/>
+      </file>
+      <file name="useRecordList.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/useRecordList.ts">
+        <metrics statements="9" coveredstatements="9" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
+        <line num="8" count="12" type="stmt"/>
+        <line num="9" count="12" type="stmt"/>
+        <line num="11" count="12" type="stmt"/>
+        <line num="12" count="6" type="stmt"/>
+        <line num="13" count="6" type="stmt"/>
+        <line num="14" count="6" type="stmt"/>
+        <line num="17" count="12" type="stmt"/>
+        <line num="18" count="4" type="stmt"/>
+        <line num="21" count="12" type="stmt"/>
+      </file>
+      <file name="useSelectedRecord.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/providers/RecordProvider/useSelectedRecord.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="10" type="stmt"/>
+        <line num="7" count="10" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utils.functions">
+      <metrics statements="9" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="2"/>
+      <file name="recordUtils.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/utils/functions/recordUtils.ts">
+        <metrics statements="9" coveredstatements="5" conditionals="2" coveredconditionals="0" methods="7" coveredmethods="2"/>
+        <line num="3" count="4" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="7" count="4" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+        <line num="9" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="12" count="4" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="16" count="4" type="stmt"/>
+        <line num="17" count="10" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.utils.supabase">
+      <metrics statements="19" coveredstatements="5" conditionals="8" coveredconditionals="0" methods="5" coveredmethods="0"/>
+      <file name="dbUsecase.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/utils/supabase/dbUsecase.ts">
+        <metrics statements="16" coveredstatements="2" conditionals="8" coveredconditionals="0" methods="5" coveredmethods="0"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="11" count="2" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="20" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="24" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="34" count="0" type="stmt"/>
+        <line num="38" count="0" type="stmt"/>
+        <line num="44" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="45" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="54" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="55" count="0" type="stmt"/>
+      </file>
+      <file name="supabase.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/src/utils/supabase/supabase.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="test-utils">
+      <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="4" coveredmethods="2"/>
+      <file name="renderApp.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/test-utils/renderApp.tsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="5" count="3" type="stmt"/>
+      </file>
+      <file name="renderWithProvider.tsx" path="/home/runner/work/my-study-log-v3/my-study-log-v3/test-utils/renderWithProvider.tsx">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="6" count="3" type="stmt"/>
+      </file>
+      <file name="waitForTable.ts" path="/home/runner/work/my-study-log-v3/my-study-log-v3/test-utils/waitForTable.ts">
+        <metrics statements="2" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
