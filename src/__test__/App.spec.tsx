@@ -50,7 +50,7 @@ describe("App", () => {
     renderApp();
     await waitForTable();
 
-    const recordButton = screen.getByRole('button', { name: /新規登録/i });
+    const recordButton = screen.getByRole('button', { name: "新規登録" });
     expect(recordButton).toBeInTheDocument();
   });
 
