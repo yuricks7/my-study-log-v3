@@ -6,6 +6,29 @@ import type { Mock } from "vitest";
 
 import { renderApp } from "../../test-utils/renderApp";
 
+// データの準備
+const prevRecord = {
+  id: "1",
+  created_at: new Date(),
+  title: "既存",
+  time: 1,
+};
+
+const newRecord = {
+  id: "new-id",
+  created_at: new Date(),
+  title: "React 勉強",
+  time: 3,
+};
+
+const deletingData = {
+  id: "deletingData01",
+  created_at: new Date(),
+  title: "削除テスト",
+  time: 5,
+};
+
+// テスト
 describe("学習記録アプリのテスト", () => {
   // Supabase モック
   vi.mock("@/utils/supabase/dbUsecase", () => ({
@@ -61,15 +84,8 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 1. 学習記録が登録できること
   // -------------------------------------------------------
-  test("学習記録が登録できること", async () => {
+  test("モーダルを使って学習記録が登録できる", async () => {
     // モック
-    const newRecord = {
-      id: "new-id",
-      created_at: new Date(),
-      title: "React 勉強",
-      time: 3,
-    };
-
     (dbUsecase.add as Mock).mockResolvedValue(newRecord);
     (dbUsecase.fetchList as Mock).mockResolvedValue([newRecord]);
 
@@ -95,20 +111,13 @@ describe("学習記録アプリのテスト", () => {
   const  TIME_REQUIRED_MSG = "学習時間は必須です";
 
   // -------------------------------------------------------
-  // 2. 学習内容がないときに登録するとエラーがでる
+  // 2. titleエラー
   // -------------------------------------------------------
-  test("学習内容がないときに登録するとエラーがでる", async () => {
+  test("学習内容がないときに登録するとエラーが出る", async () => {
     // 準備
-    const prevRecord = {
-      id: "1",
-      created_at: new Date(),
-      title: "既存",
-      time: 1,
-    };
     const { openDialog, getInputs, submit } = await setup(
       {mockFetch: [prevRecord]}
     );
-
     await openDialog();
 
     // データを入力
@@ -125,20 +134,13 @@ describe("学習記録アプリのテスト", () => {
   });
 
   // -------------------------------------------------------
-  // 3. 学習時間がないときに登録するとエラーがでる
+  // 3. timeエラー
   // -------------------------------------------------------
-  test("学習時間がないときに登録するとエラーがでる", async () => {
+  test("学習時間がないときに登録するとエラーが出る", async () => {
     // 準備
-    const prevRecord = {
-      id: "1",
-      created_at: new Date(),
-      title: "既存",
-      time: 1,
-    };
     const { openDialog, getInputs, submit } = await setup(
       {mockFetch: [prevRecord]}
     );
-
     await openDialog();
 
     // データを入力
@@ -157,18 +159,11 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 4. 未入力のエラー（両方空）
   // -------------------------------------------------------
-  test("未入力のエラーが表示される", async () => {
+  test("入力欄を両方空にするとエラーが表示される", async () => {
     // 準備
-    const prevRecord = {
-      id: "1",
-      created_at: new Date(),
-      title: "既存",
-      time: 1,
-    };
     const { openDialog, getInputs, submit } = await setup(
       {mockFetch: [prevRecord]}
     );
-
     await openDialog();
 
     // データを入力
@@ -189,18 +184,11 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 5. 0以上でないときのエラー
   // -------------------------------------------------------
-  test("学習時間が0以下のときにエラーが表示される", async () => {
+  test("学習時間を0以下にするとエラーが表示される", async () => {
     // 準備
-    const prevRecord = {
-      id: "1",
-      created_at: new Date(),
-      title: "既存",
-      time: 1,
-    };
     const { openDialog, getInputs, submit } = await setup(
       {mockFetch: [prevRecord]}
     );
-
     await openDialog();
 
     // データを入力
@@ -222,20 +210,14 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 6. 学習記録が削除できること
   // -------------------------------------------------------
-  test("学習記録が削除できること", async () => {
+  test("削除ボタンを押すと学習記録が削除できる", async () => {
     // 準備
-    const mockData = {
-      id: "mockData01",
-      created_at: new Date(),
-      title: "削除テスト",
-      time: 5,
-    };
     // fetch(1)
-    await setup({mockFetch: [mockData]});
+    await setup({mockFetch: [deletingData]});
 
     // 初期表示確認
     await waitFor(() => {
-      expect(screen.getByText(mockData.title)).toBeInTheDocument();
+      expect(screen.getByText(deletingData.title)).toBeInTheDocument();
     });
 
     // remove → fetchList(2)
@@ -249,7 +231,49 @@ describe("学習記録アプリのテスト", () => {
 
     // DOM が消えることを確認
     await waitFor(() => {
-      expect(screen.queryByText(mockData.title)).not.toBeInTheDocument();
+      expect(screen.queryByText(deletingData.title)).not.toBeInTheDocument();
+    });
+  });
+
+  // -------------------------------------------------------
+  // 7. データを更新できること
+  // -------------------------------------------------------
+  test.skip("モーダルを使ってデータを更新できる", async () => {
+    // (1) 初期fetch
+    (dbUsecase.fetchList as Mock).mockResolvedValueOnce([prevRecord]);
+
+    await setup();
+
+    // 初期チェック
+    await waitFor(() => {
+      expect(screen.getByText(prevRecord.title)).toBeInTheDocument();
+    });
+
+    // (2) update（の返り値は`Record`1件のみ）
+    vi.spyOn(window, "confirm").mockReturnValue(true);
+    (dbUsecase.update as Mock).mockResolvedValueOnce(newRecord);
+    (dbUsecase.fetchList as Mock).mockResolvedValueOnce([newRecord]);
+
+    // 編集ボタン
+    const editButton = screen.getByRole("button", { name: "edit" });
+    await userEvent.click(editButton);
+
+    // データを入力
+    const title = screen.getByTestId("input-text");
+    const time  = screen.getByTestId("input-number");
+
+    await userEvent.clear(title);
+    await userEvent.type(title, newRecord.title);
+
+    await userEvent.clear(time);
+    await userEvent.type(time, `${newRecord.time}`);
+
+    const submitButton = screen.getByRole("button", { name: "更新" });
+    await userEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(screen.queryByText(prevRecord.title)).not.toBeInTheDocument();
+      expect(screen.getByText(newRecord.title)).toBeInTheDocument();
     });
   });
 });
