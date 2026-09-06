@@ -38,8 +38,8 @@ export const DialogForm: React.FC<Props> = memo((props) => {
   } = useRecord();
 
   const isOpen = mode === "create" ? isCreateOpen : isEditOpen;
-  // 早期 return で閉じているときは何もマウントしない
-  if (!isOpen) return null;
+  // // 早期 return で閉じているときは何もマウントしない
+  // if (!isOpen) return null;
 
   const {
     register,
@@ -48,15 +48,16 @@ export const DialogForm: React.FC<Props> = memo((props) => {
     clearErrors,
     formState: { errors },
   } = useForm<FormValues>({
+    mode: "onSubmit",
     defaultValues: { title: "", time: 0 },
   });
 
-  console.log("DialogForm mount - mode:", mode, "isOpen:", isOpen);
+  // console.log("DialogForm mount - mode:", mode, "isOpen:", isOpen);
 
-  console.log("DialogForm register keys:", Object.keys(register || {})); // register が関数であれば無害
-  console.log("DialogForm initial selectedRecord id:", selectedRecord?.id ?? null);
+  // console.log("DialogForm register keys:", Object.keys(register || {})); // register が関数であれば無害
+  // console.log("DialogForm initial selectedRecord id:", selectedRecord?.id ?? null);
 
-  console.log("DialogForm errors (initial):", errors); // フォームの formState.errors を監視
+  // console.log("DialogForm errors (initial):", errors); // フォームの formState.errors を監視
 
   useEffect(() => {
     if (!isOpen) return;

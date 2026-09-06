@@ -1,5 +1,5 @@
 import "@testing-library/jest-dom";
-import { screen, waitFor } from "@testing-library/react";
+import { act, cleanup, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import type { Mock } from "vitest";
@@ -16,28 +16,22 @@ vi.mock("@/utils/supabase/dbUsecase", () => ({
   },
 }));
 
-// const mockRecords = [
-//   {
-//     id: "aaaaaa",
-//     created_at: new Date(),
-//     title: "勉強の記録10",
-//     time: 10,
-//   },
-// ];
-
 describe("学習記録アプリのテスト", () => {
   const setup = () => {
     renderApp();
-    const openButton   = screen.getByRole("button", { name: "新規登録" })
+    const openButton = screen.getByRole("button", { name: "新規登録" })
     return { openButton };
   };
 
+  // モックの初期設定
   beforeEach(async () => {
-    // モックの初期設定
-    const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
-    // リセット
-    vi.resetAllMocks();
+  });
+
+  // リセット
+  afterEach(() => {
+    vi.restoreAllMocks();
+    cleanup();
   });
 
   // -------------------------------------------------------
@@ -126,7 +120,7 @@ describe("学習記録アプリのテスト", () => {
     const submitButton = screen.getByRole("button", { name: "登録" });
     await userEvent.click(submitButton);
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
       expect(screen.getByText(titleRequiredMsg)).toBeInTheDocument();
     });
   });
@@ -210,7 +204,7 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 5. 0以上でないときのエラー
   // -------------------------------------------------------
-  test.skip("学習時間が0以下のときにエラーが表示される", async () => {
+  test("学習時間が0以下のときにエラーが表示される", async () => {
     // モック
     const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
@@ -227,13 +221,18 @@ describe("学習記録アプリのテスト", () => {
     const { openButton } = setup();
     await userEvent.click(openButton);
 
+    // Chakra UIの仕様で「負の値を入力した瞬間に空（`null`）になる」ので、いったん正の値を入力してから訂正する
     const timeInput  = screen.getByTestId("input-number");
-    await userEvent.type(timeInput, "-1");
+    await userEvent.type(timeInput, "1");
+    await userEvent.clear(timeInput);
+    const MINUS_VALUE = -1;
+    await userEvent.type(timeInput, `${MINUS_VALUE}`);
 
     const submitButton = screen.getByRole("button", { name: "登録" });
     await userEvent.click(submitButton);
 
-    await waitFor(() => {
+    await vi.waitFor(() => {
+      expect(timeInput).toHaveValue(MINUS_VALUE);
       expect(screen.getByText("1時間以上を入力してください")).toBeInTheDocument();
     });
   });
@@ -241,38 +240,38 @@ describe("学習記録アプリのテスト", () => {
   // -------------------------------------------------------
   // 6. 学習記録が削除できること
   // -------------------------------------------------------
-  test.skip("学習記録が削除できること", async () => {
-    // モック
+  test("学習記録が削除できること", async () => {
     const { dbUsecase } = await import("@/utils/supabase/dbUsecase");
 
-    const prevData = {
-      id: "aaaaaa",
+    const mockData = {
+      id: "mockData01",
       created_at: new Date(),
-      title: "勉強の記録10",
-      time: 10,
+      title: "削除テスト",
+      time: 5,
     };
 
-    (dbUsecase.fetchList as Mock).mockResolvedValue([prevData]);
+    // confirm を必ずモックする（これが最重要）
+    vi.spyOn(window, "confirm").mockReturnValue(true);
 
-    // テスト
-    const { openButton } = setup();
-    await userEvent.click(openButton);
-    const titleInput = screen.getByTestId("input-text");
-    const timeInput  = screen.getByTestId("input-number");
+    // fetchList → remove → fetchList
+    (dbUsecase.fetchList as Mock).mockResolvedValueOnce([mockData]);
+    (dbUsecase.remove as Mock).mockResolvedValueOnce(undefined);
+    (dbUsecase.fetchList as Mock).mockResolvedValueOnce([]);
 
-    const deleteTestTitle = "削除テスト";
-    const deleteTestTime  = "5";
-    userEvent.type(titleInput, deleteTestTitle);
-    userEvent.type( timeInput, deleteTestTime);
+    renderApp();
 
-    // 削除ボタンを取得
-    const deleteButtons = await screen.findAllByRole("button", { name: "delete01"}); // 要素を取得できない…
-    const lastButton = deleteButtons[deleteButtons.length - 1];
-    userEvent.click(lastButton);
-
+    // 初期表示確認
     await waitFor(() => {
-      expect(screen.queryByText(deleteTestTitle)).not.toBeInTheDocument();
-      expect(screen.queryByText(`${deleteTestTime}時間`)).not.toBeInTheDocument();
+      expect(screen.getByText(mockData.title)).toBeInTheDocument();
+    });
+
+    // 削除ボタンを押す
+    const deleteButton = screen.getByRole("button", { name: "delete" });
+    await userEvent.click(deleteButton);
+
+    // DOM が消えることを確認
+    await waitFor(() => {
+      expect(screen.queryByText(mockData.title)).not.toBeInTheDocument();
     });
   });
 });

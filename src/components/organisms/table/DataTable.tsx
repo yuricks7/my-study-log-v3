@@ -51,6 +51,8 @@ export const DataTable: React.FC<Props> = memo((props) => {
               <Table.Cell>
                 <ReactIconButton
                   label="delete"
+                  data-testid={record.title}
+                  aria-hidden="false"
                   onClick={
                     () => {
                       let m = "";
