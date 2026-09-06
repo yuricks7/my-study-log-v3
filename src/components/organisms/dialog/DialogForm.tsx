@@ -46,7 +46,7 @@ export const DialogForm: React.FC<Props> = memo((props) => {
     handleSubmit,
     reset,
     clearErrors,
-    formState: { errors },
+    formState,
   } = useForm<FormValues>({
     mode: "onSubmit",
     defaultValues: { title: "", time: 0 },
@@ -121,7 +121,10 @@ export const DialogForm: React.FC<Props> = memo((props) => {
                 required: "学習内容は必須です",
                 minLength: { value: 1, message: "1文字以上入力してください" },
               }}
-              error={errors.title?.message}
+              error={formState.isSubmitted
+                ? formState.errors.title?.message
+                : undefined
+              }
             />
 
             <FormField
@@ -134,7 +137,10 @@ export const DialogForm: React.FC<Props> = memo((props) => {
                 valueAsNumber: true,
                 min: { value: 1, message: "1時間以上を入力してください" },
               }}
-              error={errors.time?.message}
+              error={formState.isSubmitted
+                ? formState.errors.time?.message
+                : undefined
+              }
             />
 
             <DialogFooter mt={4}>
